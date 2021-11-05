@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
+import { Redirect } from 'react-router';
 
 function Login() {
   const [loginState, setLoginState] = useState({
     email: '',
     password: '',
   });
+  const [disabled, setDisabled] = useState(true);
+  const { email, password } = loginState;
 
   const handleChange = (value, id) => {
     setLoginState({
@@ -14,12 +17,27 @@ function Login() {
     });
   };
 
-  const { email, password } = loginState;
+  const validateEmailAndPassword = () => {
+    const regexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+?$/i;
+    const passLength = 6;
+    const validation = !(regexEmail.test(email)
+      && (password.length > passLength));
+    setDisabled(validation);
+  };
+
+  const handleSubmit = () => {
+    localStorage.setItem('email', email);
+    return <Redirect to="/comida" />;
+  };
+
+  useEffect(() => {
+    validateEmailAndPassword();
+  }, [loginState]);
 
   return (
     <form>
       <label htmlFor="email">
-        E-mail: 
+        E-mail:
         <input
           id="email"
           type="email"
@@ -30,7 +48,7 @@ function Login() {
         />
       </label>
       <label htmlFor="password">
-        Senha: 
+        Senha:
         <input
           id="password"
           type="password"
@@ -40,7 +58,14 @@ function Login() {
           placeholder="Insira sua senha"
         />
       </label>
-      <Button variant="success" data-testid="login-submit-btn">Entrar</Button>
+      <Button
+        variant="success"
+        data-testid="login-submit-btn"
+        disabled={ disabled }
+        onClick={ handleSubmit }
+      >
+        Entrar
+      </Button>
     </form>
   );
 }
