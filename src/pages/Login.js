@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
-import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const [loginState, setLoginState] = useState({
@@ -19,15 +19,16 @@ function Login() {
 
   const validateEmailAndPassword = () => {
     const regexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+?$/i;
-    const passLength = 6;
+    const minLength = 7;
     const validation = !(regexEmail.test(email)
-      && (password.length > passLength));
+      && (password.length >= minLength));
     setDisabled(validation);
   };
 
-  const handleSubmit = () => {
-    localStorage.setItem('email', email);
-    return <Redirect to="/comida" />;
+  const saveInLocalStorage = () => {
+    localStorage.setItem('user', JSON.stringify({ email }));
+    localStorage.setItem('mealsToken', JSON.stringify(1));
+    localStorage.setItem('cocktailsToken', JSON.stringify(1));
   };
 
   useEffect(() => {
@@ -58,14 +59,16 @@ function Login() {
           placeholder="Insira sua senha"
         />
       </label>
-      <Button
-        variant="success"
-        data-testid="login-submit-btn"
-        disabled={ disabled }
-        onClick={ handleSubmit }
-      >
-        Entrar
-      </Button>
+      <Link to="/comidas">
+        <Button
+          variant="success"
+          data-testid="login-submit-btn"
+          disabled={ disabled }
+          onClick={ saveInLocalStorage }
+        >
+          Entrar
+        </Button>
+      </Link>
     </form>
   );
 }
