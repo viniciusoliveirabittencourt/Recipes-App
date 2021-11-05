@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <div className="meals">
-      <span className="logo">TRYBE</span>
+      <span className="logo">GRUPO 01 : LUIZ GUSTAVO, OLAVO TIMÓTEO, RAFAEL VEIGA, RODRIGO MARCHI, VINICIUS BITTENVOURT</span>
       <object
         className="rocksGlass"
         type="image/svg+xml"
