@@ -1,20 +1,14 @@
 import React from 'react';
+import Content from './components/Content';
+import AppProvider from './context/AppProvider';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div className="meals">
-      <span className="logo">GRUPO 01 : LUIZ GUSTAVO, OLAVO TIMÓTEO, RAFAEL VEIGA, RODRIGO MARCHI, VINICIUS BITTENVOURT</span>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ rockGlass }
-      >
-        Glass
-      </object>
-    </div>
+    <AppProvider>
+      <Content />
+    </AppProvider>
   );
 }
 
