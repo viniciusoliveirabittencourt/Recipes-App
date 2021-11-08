@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-export default function Search({ isActive }) {
+export default function SearchBar({ isActive }) {
   const [search, setSearch] = useState('');
   const [searchParameters, setSearchParameters] = useState('');
   const [api, setApi] = useState([]);
@@ -11,10 +11,9 @@ export default function Search({ isActive }) {
   }
 
   async function sendRequisition(url) {
-    const baseURL = isActive === 'meals' ?
-     'https://www.themealdb.com/api/json/v1/1/' 
-     : 
-     'https://www.thecocktaildb.com/api/json/v1/1/' ;
+    const baseURL = isActive === 'meals'
+      ? 'https://www.themealdb.com/api/json/v1/1/'
+      : 'https://www.thecocktaildb.com/api/json/v1/1/';
 
     try {
       const response = await fetch(`${baseURL}${url}`);
@@ -112,6 +111,6 @@ export default function Search({ isActive }) {
   );
 }
 
-PropTypes.SearchBar = {
+SearchBar.propTypes = {
   isActive: PropTypes.string.isRequired,
 };

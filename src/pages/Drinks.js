@@ -6,7 +6,7 @@ function Drinks() {
   return (
     <div>
       <p>Tela de Bebidas</p>
-      <SearchBar isActive={'drinks'} />
+      <SearchBar isActive="drinks" />
       <Footer />
     </div>
   );
