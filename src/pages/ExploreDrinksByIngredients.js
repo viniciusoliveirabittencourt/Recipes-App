@@ -1,13 +1,13 @@
 import React from 'react';
 import Footer from '../components/Footer';
 
-function Foods() {
+function IngredientsDrink() {
   return (
     <div>
-      <p>Tela de Comida</p>
+      <p>Tela de explorar bebidas por ingrediente</p>
       <Footer />
     </div>
   );
 }
 
-export default Foods;
+export default IngredientsDrink;
