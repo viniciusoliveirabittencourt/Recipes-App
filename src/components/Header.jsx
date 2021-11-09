@@ -40,29 +40,30 @@ export default class Header extends Component {
   }
 
   checkHeader() {
-    return (<label
-      htmlFor="search-input"
-    >
-      <button
-        type="button"
-        onClick={ this.changeClick }
-        data-testid="search-top-btn"
-        src={ searchIcon }
-        id="search-input"
-      />
-      <img
-        alt="search icon"
-        id="search"
-      />
-      <input
-        type="search"
-        placeholder="Search"
-        id="input-search"
-        className="search-input"
-        name="search-input"
-        data-testid="search-input"
-      />
-            </label>
+    return (
+      <label
+        htmlFor="search-input"
+      >
+        <button
+          type="button"
+          onClick={ this.changeClick }
+          data-testid="search-top-btn"
+          src={ searchIcon }
+          id="search-input"
+        />
+        <img
+          alt="search icon"
+          id="search"
+        />
+        <input
+          type="search"
+          placeholder="Search"
+          id="input-search"
+          className="search-input"
+          name="search-input"
+          data-testid="search-input"
+        />
+      </label>
     );
   }
 
