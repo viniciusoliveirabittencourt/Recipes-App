@@ -37,10 +37,10 @@ export function AppProvider({ children }) {
 
     setLoading(false);
   };
-  
+
   const [dataMeals, setDataMeals] = useState([]);
   const [dataDrinks, setDataDrinks] = useState([]);
-  
+
   const context = {
     dataMeals,
     setDataMeals,

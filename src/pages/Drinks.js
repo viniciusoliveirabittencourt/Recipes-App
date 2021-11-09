@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import Loading from '../components/Loading';
 import { useAppContext } from '../context/AppProvider';
 import CategoryButtons from '../components/CategoryButtons';
+import Header from '../components/Header';
 
 export default function Drinks() {
   const {
@@ -34,7 +35,7 @@ export default function Drinks() {
       { createCategoryButtons() }
       { createRecipeCards() }
       <Footer />
-    </>
+    </div>
   );
 
   return loading ? <Loading /> : standardReturnElements;
