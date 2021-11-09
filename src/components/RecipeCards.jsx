@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default function RecipeCards(props) {
@@ -21,6 +21,9 @@ export default function RecipeCards(props) {
             <div
               data-testid={ `${index}-recipe-card` }
               key={ cardData[`id${type}`] }
+              role="button"
+              tabIndex={ 0 }
+              onKeyDown={ cardData[`id${type}`] }
               onClick={ () => history.push(`/${pagePath}/${cardData[`id${type}`]}`) }
               style={ { width: '40%' } }
             >

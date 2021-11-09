@@ -10,11 +10,11 @@ export default function CategoryButtons(props) {
 
   const manipulateCategoryState = (buttonCategory) => {
     if (selectedCategory === buttonCategory) {
-      setSelectedCategory('search.php?s=')
+      setSelectedCategory('search.php?s=');
     } else {
-      setSelectedCategory(buttonCategory)
+      setSelectedCategory(buttonCategory);
     }
-  }
+  };
 
   return (
     <div
@@ -41,7 +41,9 @@ export default function CategoryButtons(props) {
               type="button"
               key={ buttonData.strCategory }
               data-testid={ `${buttonData.strCategory}-category-filter` }
-              onClick={ () => manipulateCategoryState(`filter.php?c=${buttonData.strCategory}`) }
+              onClick={ () => manipulateCategoryState(
+                `filter.php?c=${buttonData.strCategory}`,
+              ) }
               style={ { width: '32%', margin: '5px 0px' } }
             >
               { buttonData.strCategory }
