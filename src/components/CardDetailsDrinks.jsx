@@ -16,7 +16,7 @@ export default function CardDetailsDrinks({ recipeDrink }) {
     strDrink,
     strDrinkThumb,
     strInstructions,
-    strCategory,
+    strAlcoholic,
   } = recipeDrink;
 
   const ingredients = [];
@@ -44,7 +44,7 @@ export default function CardDetailsDrinks({ recipeDrink }) {
           <Card.Text
             data-testid="recipe-category"
           >
-            { strCategory }
+            { strAlcoholic }
           </Card.Text>
         </div>
         <div>
@@ -78,17 +78,6 @@ export default function CardDetailsDrinks({ recipeDrink }) {
       </Card.Body>
       <Card.Body>
         <Card.Subtitle>
-          Video
-        </Card.Subtitle>
-        <iframe
-          frameBorder="0"
-          allow="autoplay; encrypted-media"
-          title="video"
-          data-testid="video"
-        />
-      </Card.Body>
-      <Card.Body>
-        <Card.Subtitle>
           Recomendações
         </Card.Subtitle>
         <Row xs={ 2 } sm={ 3 } className="g-4">
@@ -117,7 +106,7 @@ CardDetailsDrinks.propTypes = {
     strDrink: PropTypes.string.isRequired,
     strDrinkThumb: PropTypes.string.isRequired,
     strInstructions: PropTypes.string.isRequired,
-    strCategory: PropTypes.string.isRequired,
+    strAlcoholic: PropTypes.string.isRequired,
     strYoutube: PropTypes.string.isRequired,
   }).isRequired,
 };
