@@ -10,28 +10,8 @@ export default class Header extends Component {
     this.state = {
       input: false,
     };
-    // this.showInputSearch = this.showInputSearch.bind(this);
     this.changeClick = this.changeClick.bind(this);
   }
-
-  // componentDidMount() {
-  //   const { completeSearch } = this.props;
-  //   if (completeSearch === true) { this.showInputSearch(); }
-  // }
-
-  // componentDidUpdate() {
-  //   this.showInputSearch();
-  // }
-
-  // showInputSearch() {
-  //   const { input } = this.state;
-  //   const inputSearch = document.querySelector('#input-search');
-  //   if (input === true) {
-  //     inputSearch.style.display = 'block';
-  //   } else {
-  //     inputSearch.style.display = 'none';
-  //   }
-  // }
 
   changeClick() {
     const { input } = this.state;
@@ -66,7 +46,6 @@ export default class Header extends Component {
               type="text"
               placeholder="Search"
               id="input-search"
-              // className="search-input"
               name="search-input"
               data-testid="search-input"
             />
