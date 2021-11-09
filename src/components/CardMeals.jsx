@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import '../styles/cards.css';
 import { Card, Col } from 'react-bootstrap';
 
-export default function CardMeals({ index, meal }) {
+export default function CardMeals({ index, meal, dataID }) {
   const { strMeal, strMealThumb } = meal;
   return (
     <Col>
-      <Card data-testid={ `${index}-recipe-card` } className="container-cards">
+      <Card data-testid={ dataID } className="container-cards">
         <Card.Img
           src={ strMealThumb }
           alt={ strMeal }
@@ -33,4 +33,5 @@ CardMeals.propTypes = {
     strMeal: PropTypes.string.isRequired,
     strMealThumb: PropTypes.string.isRequired,
   }).isRequired,
+  dataID: PropTypes.string.isRequired,
 };

@@ -1,0 +1,24 @@
+@media screen and ( max-width : 768px ) {
+
+  .card-img-top {
+    height: 40vw;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .card_title {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .card_title button {
+    border: none;
+    margin: 0.25rem;
+  }
+
+  .card_title button:hover {
+    cursor: pointer;
+  }
+
+}
+

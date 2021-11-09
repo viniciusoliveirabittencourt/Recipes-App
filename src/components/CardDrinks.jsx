@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Col, Card } from 'react-bootstrap';
 
-export default function CardDrinks({ drink, index }) {
+export default function CardDrinks({ drink, index, dataID }) {
   const { strDrink, strDrinkThumb } = drink;
   return (
     <Col>
-      <Card data-testid={ `${index}-recipe-card` } className="container-cards">
+      <Card data-testid={ dataID } className="container-cards">
         <Card.Img
           variant="top"
           src={ strDrinkThumb }
@@ -31,4 +31,5 @@ CardDrinks.propTypes = {
     strDrinkThumb: PropTypes.string.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
+  dataID: PropTypes.string.isRequired,
 };
