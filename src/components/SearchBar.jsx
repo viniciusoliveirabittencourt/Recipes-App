@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useAppContext } from '../context/AppProvider';
 
+const notFound = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
 export default function SearchBar() {
   const location = useLocation();
   const history = useHistory();
@@ -32,18 +34,23 @@ export default function SearchBar() {
       }
     } catch (error) {
       console.error(error);
+      global.alert(notFound);
     }
+    setSearch('');
+    setSearchParameters('');
   }
 
   useEffect(() => {
-    if (dataMeals.length === 1) {
+    if (dataMeals !== null && dataMeals.length === 1) {
       history.push(`/comidas/${dataMeals[0].idMeal}`);
     }
-    if (dataDrinks.length === 1) {
+    if (dataDrinks !== null && dataDrinks.length === 1) {
       history.push(`/bebidas/${dataDrinks[0].idDrink}`);
     }
     console.log(dataMeals);
     console.log(dataDrinks);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataMeals, dataDrinks]);
 
   function handleSubmitSearch(e) {
