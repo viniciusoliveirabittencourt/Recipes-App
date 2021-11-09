@@ -1,0 +1,11 @@
+.container-search {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+}
+
+.container-radios {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
