@@ -4,7 +4,7 @@ import Header from '../components/Header';
 function ExploreFoodsByOrigin() {
   return (
     <div>
-      <Header pagename="Explorar" completeSearch={ false } />
+      <Header pagename="Explorar Origem" completeSearch />
       <p>Tela de explorar comidas por local de origem</p>
     </div>
   );

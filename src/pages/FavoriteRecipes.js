@@ -4,7 +4,7 @@ import Header from '../components/Header';
 function FavoriteRecipes() {
   return (
     <div>
-      <Header pagename="Explorar" completeSearch={ false } />
+      <Header pagename="Receitas Favoritas" completeSearch={ false } />
       <p>Tela de receitas favoritas</p>
     </div>
   );
