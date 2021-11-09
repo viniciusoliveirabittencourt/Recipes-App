@@ -8,7 +8,7 @@ import '../styles/foods.css';
 
 const LIMIT_OF_MEALS = 12;
 
-function Foods() {
+export default function Foods() {
   const { dataMeals } = useAppContext();
   return (
     <div>

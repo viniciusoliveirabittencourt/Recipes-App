@@ -1,9 +1,8 @@
 import React from 'react';
-import Header from '../components/Header';
 import { Row } from 'react-bootstrap';
+import Header from '../components/Header';
 import CardDrinks from '../components/CardDrinks';
 import Footer from '../components/Footer';
-import Header from '../components/Header';
 import { useAppContext } from '../context/AppProvider';
 
 const LIMIT_OF_DRINKS = 12;
