@@ -1,32 +1,50 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { useLocation, useHistory } from 'react-router-dom';
+import { useAppContext } from '../context/AppProvider';
 
-export default function SearchBar({ isActive }) {
+export default function SearchBar() {
+  const location = useLocation();
+  const history = useHistory();
+  const { dataMeals, dataDrinks, setDataMeals, setDataDrinks } = useAppContext();
   const [search, setSearch] = useState('');
   const [searchParameters, setSearchParameters] = useState('');
-  const [api, setApi] = useState([]);
+
+  const isMeals = location.pathname === '/comidas';
+  const isDrinks = location.pathname === '/bebidas';
+  const isMealsOrDrinks = isMeals || !isDrinks;
 
   function handleChange({ target: { value } }) {
     setSearchParameters(value);
   }
 
   async function sendRequisition(url) {
-    const baseURL = isActive === 'meals'
+    const baseURL = isMealsOrDrinks
       ? 'https://www.themealdb.com/api/json/v1/1/'
       : 'https://www.thecocktaildb.com/api/json/v1/1/';
 
     try {
       const response = await fetch(`${baseURL}${url}`);
       const json = await response.json();
-      setApi(isActive === 'meals' ? json.meals : json.drinks);
+      if (isMealsOrDrinks) {
+        setDataMeals(json.meals);
+      } else {
+        setDataDrinks(json.drinks);
+      }
     } catch (error) {
       console.error(error);
     }
   }
 
   useEffect(() => {
-    console.log(api);
-  }, [api]);
+    if (dataMeals.length === 1) {
+      history.push(`/comidas/${dataMeals[0].idMeal}`);
+    }
+    if (dataDrinks.length === 1) {
+      history.push(`/bebidas/${dataDrinks[0].idDrink}`);
+    }
+    console.log(dataMeals);
+    console.log(dataDrinks);
+  }, [dataMeals, dataDrinks]);
 
   function handleSubmitSearch(e) {
     e.preventDefault();
@@ -61,6 +79,7 @@ export default function SearchBar({ isActive }) {
         placeholder="Faça sua busca..."
         value={ search }
         onChange={ (e) => setSearch(e.target.value) }
+        data-testid="search-input"
       />
       <div>
         <label htmlFor="ingredient">
@@ -110,7 +129,3 @@ export default function SearchBar({ isActive }) {
     </form>
   );
 }
-
-SearchBar.propTypes = {
-  isActive: PropTypes.string.isRequired,
-};
