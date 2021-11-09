@@ -3,10 +3,18 @@ import PropTypes from 'prop-types';
 import { useAppContext } from '../context/AppProvider';
 
 export default function CategoryButtons(props) {
-  const { setSelectedCategory } = useAppContext();
+  const { setSelectedCategory, selectedCategory } = useAppContext();
   const { buttonsData } = props;
   const STARTING_ON_INDEX_0 = 0;
   const GET_FIVE_ELEMENTS = 5;
+
+  const manipulateCategoryState = (buttonCategory) => {
+    if (selectedCategory === buttonCategory) {
+      setSelectedCategory('search.php?s=')
+    } else {
+      setSelectedCategory(buttonCategory)
+    }
+  }
 
   return (
     <div
@@ -18,7 +26,7 @@ export default function CategoryButtons(props) {
     >
       <button
         type="button"
-        data-testid="All"
+        data-testid="All-category-filter"
         onClick={ () => setSelectedCategory('search.php?s=') }
         style={ { width: '32%', margin: '5px 0px' } }
       >
@@ -33,8 +41,7 @@ export default function CategoryButtons(props) {
               type="button"
               key={ buttonData.strCategory }
               data-testid={ `${buttonData.strCategory}-category-filter` }
-              onClick={ () => (
-                setSelectedCategory(`filter.php?c=${buttonData.strCategory}`)) }
+              onClick={ () => manipulateCategoryState(`filter.php?c=${buttonData.strCategory}`) }
               style={ { width: '32%', margin: '5px 0px' } }
             >
               { buttonData.strCategory }
