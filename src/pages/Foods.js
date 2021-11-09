@@ -30,6 +30,7 @@ export default function Foods() {
   const standardReturnElements = (
     <div>
       <p>Comidas</p>
+      <Header />
       { createCategoryButtons() }
       { createRecipeCards() }
       <Footer />

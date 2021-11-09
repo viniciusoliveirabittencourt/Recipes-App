@@ -30,10 +30,11 @@ export default function Drinks() {
   const standardReturnElements = (
     <div>
       <p>Bebidas</p>
+      <Header />
       { createCategoryButtons() }
       { createRecipeCards() }
       <Footer />
-    </div>
+    </>
   );
 
   return loading ? <Loading /> : standardReturnElements;

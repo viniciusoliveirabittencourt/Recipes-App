@@ -37,20 +37,27 @@ export function AppProvider({ children }) {
 
     setLoading(false);
   };
+  
+  const [dataMeals, setDataMeals] = useState([]);
+  const [dataDrinks, setDataDrinks] = useState([]);
+  
+  const context = {
+    dataMeals,
+    setDataMeals,
+    dataDrinks,
+    setDataDrinks,
+    fetchCategoriesAndRecipes,
+    loading,
+    mealCategories,
+    meals,
+    drinkCategories,
+    drinks,
+    selectedCategory,
+    setSelectedCategory,
+  };
 
   return (
-    <AppContext.Provider
-      value={ {
-        fetchCategoriesAndRecipes,
-        loading,
-        mealCategories,
-        meals,
-        drinkCategories,
-        drinks,
-        selectedCategory,
-        setSelectedCategory,
-      } }
-    >
+    <AppContext.Provider value={ context }>
       { children }
     </AppContext.Provider>
   );
