@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useAppContext } from '../context/AppProvider';
+import '../styles/searchbar.css';
 
 const notFound = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
@@ -27,11 +28,9 @@ export default function SearchBar() {
     try {
       const response = await fetch(`${baseURL}${url}`);
       const json = await response.json();
-      if (isMealsOrDrinks) {
-        setDataMeals(json.meals);
-      } else {
-        setDataDrinks(json.drinks);
-      }
+      if (json.meals === null || json.drinks === null) return global.alert(notFound);
+      if (isMealsOrDrinks) setDataMeals(json.meals);
+      else setDataDrinks(json.drinks);
     } catch (error) {
       console.error(error);
       global.alert(notFound);
@@ -41,15 +40,12 @@ export default function SearchBar() {
   }
 
   useEffect(() => {
-    if (dataMeals !== null && dataMeals.length === 1) {
+    if (dataMeals && dataMeals.length === 1) {
       history.push(`/comidas/${dataMeals[0].idMeal}`);
     }
-    if (dataDrinks !== null && dataDrinks.length === 1) {
+    if (dataDrinks && dataDrinks.length === 1) {
       history.push(`/bebidas/${dataDrinks[0].idDrink}`);
     }
-    console.log(dataMeals);
-    console.log(dataDrinks);
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataMeals, dataDrinks]);
 
@@ -80,7 +76,7 @@ export default function SearchBar() {
   }
 
   return (
-    <form>
+    <form className="container-search">
       <input
         type="text"
         placeholder="Faça sua busca..."
@@ -88,7 +84,7 @@ export default function SearchBar() {
         onChange={ (e) => setSearch(e.target.value) }
         data-testid="search-input"
       />
-      <div>
+      <div className="container-radios">
         <label htmlFor="ingredient">
           <input
             type="radio"
@@ -129,7 +125,7 @@ export default function SearchBar() {
       <button
         type="submit"
         data-testid="exec-search-btn"
-        onClick={ handleSubmitSearch }
+        onClick={ (e) => handleSubmitSearch(e) }
       >
         Buscar
       </button>

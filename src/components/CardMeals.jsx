@@ -7,7 +7,7 @@ export default function CardMeals({ index, meal }) {
   const { strMeal, strMealThumb } = meal;
   return (
     <Col>
-      <Card data-testid={ `${index}-recipe-card` }>
+      <Card data-testid={ `${index}-recipe-card` } className="container-cards">
         <Card.Img
           src={ strMealThumb }
           alt={ strMeal }
