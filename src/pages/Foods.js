@@ -1,27 +1,41 @@
-import React from 'react';
-import { Row } from 'react-bootstrap';
-import { useAppContext } from '../context/AppProvider';
-import CardMeals from '../components/CardMeals';
+import React, { useEffect } from 'react';
+import RecipeCards from '../components/RecipeCards';
 import Footer from '../components/Footer';
-import Header from '../components/Header';
-import '../styles/foods.css';
+import Loading from '../components/Loading';
+import { useAppContext } from '../context/AppProvider';
+import CategoryButtons from '../components/CategoryButtons';
 
-const LIMIT_OF_MEALS = 12;
+export default function Foods() {
+  const {
+    fetchCategoriesAndRecipes, mealCategories, meals, loading, selectedCategory,
+  } = useAppContext();
+  const EMPTY = 0;
 
-function Foods() {
-  const { dataMeals } = useAppContext();
-  return (
+  useEffect(() => {
+    fetchCategoriesAndRecipes('meals');
+  }, [selectedCategory]);
+
+  const createCategoryButtons = () => {
+    if (mealCategories.length > EMPTY) {
+      return (<CategoryButtons buttonsData={ mealCategories } />);
+    }
+  };
+
+  const createRecipeCards = () => {
+    if (meals.length > EMPTY) {
+      return (<RecipeCards cardsData={ meals } type="Meal" />);
+    }
+  };
+
+  const standardReturnElements = (
     <div>
-      <p>Tela de Comida</p>
+      <p>Comidas</p>
       <Header />
-      <Row xs={ 2 } sm={ 3 } className="g-4" as="section">
-        { dataMeals && dataMeals.slice(0, LIMIT_OF_MEALS).map((meal, index) => (
-          <CardMeals key={ meal.idMeal } meal={ meal } index={ index } />
-        ))}
-      </Row>
+      { createCategoryButtons() }
+      { createRecipeCards() }
       <Footer />
     </div>
   );
-}
 
-export default Foods;
+  return loading ? <Loading /> : standardReturnElements;
+}
