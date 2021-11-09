@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, Row } from 'react-bootstrap';
-import CardDrinks from './CardDrinks';
+import CardMeals from './CardMeals';
 import shareIconImg from '../images/shareIcon.svg';
 import likeIconImg from '../images/whiteHeartIcon.svg';
 import useFetch from '../hooks/useFetch';
@@ -11,7 +11,8 @@ import '../styles/cardDetails.css';
 const MAX_INGREDIENTS = 20;
 
 export default function CardDetailsDrinks({ recipeDrink }) {
-  const { data: dataRecommendations, loading } = useFetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', 'drinks');
+  const { data: dataRecommendations, loading } = useFetch('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals');
+
   const {
     strDrink,
     strDrinkThumb,
@@ -83,9 +84,9 @@ export default function CardDetailsDrinks({ recipeDrink }) {
         <Row xs={ 2 } sm={ 3 } className="g-4">
           { loading ? <Loading />
             : dataRecommendations.slice(0, 2).map((recipe, index) => (
-              <CardDrinks
+              <CardMeals
                 key={ index }
-                drink={ recipe }
+                meal={ recipe }
                 index={ index }
                 dataID={ `${index}-recomendation-card` }
               />
