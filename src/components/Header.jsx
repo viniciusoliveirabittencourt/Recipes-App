@@ -49,7 +49,7 @@ export default class Header extends Component {
           onClick={ this.changeClick }
           data-testid="search-top-btn"
           src={ searchIcon }
-          id="search-input"
+          aria-label="search-input"
         />
         <img
           alt="search icon"
@@ -95,4 +95,5 @@ Header.propTypes = {
     pathname: Proptypes.string,
   }).isRequired,
   pagename: Proptypes.string.isRequired,
+    completeSearch: Proptypes.bool.isRequired,
 };
