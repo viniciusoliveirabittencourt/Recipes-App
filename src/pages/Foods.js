@@ -1,29 +1,49 @@
-import React from 'react';
-import { Row } from 'react-bootstrap';
-import { useAppContext } from '../context/AppProvider';
-import CardMeals from '../components/CardMeals';
+import React, { useEffect } from 'react';
+import RecipeCards from '../components/RecipeCards';
 import Footer from '../components/Footer';
+import Loading from '../components/Loading';
+import { useAppContext } from '../context/AppProvider';
+import CategoryButtons from '../components/CategoryButtons';
 import Header from '../components/Header';
-import '../styles/foods.css';
 
-const LIMIT_OF_MEALS = 12;
+export default function Foods() {
+  const {
+    fetchCategoriesAndRecipes, mealCategories, meals, loading, selectedCategory,
+  } = useAppContext();
+  const EMPTY = 0;
 
+  useEffect(() => {
+    fetchCategoriesAndRecipes('meals');
+  }, [selectedCategory]);
+
+<<<<<<< HEAD
 export default function Foods() {
   const { dataMeals } = useAppContext();
   return (
+=======
+  const createCategoryButtons = () => {
+    if (mealCategories.length > EMPTY) {
+      return (<CategoryButtons buttonsData={ mealCategories } />);
+    }
+  };
+
+  const createRecipeCards = () => {
+    if (meals.length > EMPTY) {
+      return (<RecipeCards cardsData={ meals } type="Meal" />);
+    }
+  };
+
+  const standardReturnElements = (
+>>>>>>> 3b02d5f8cb90d8efb5fa0fb0f27570d1cc27fb75
     <div>
       <Header pagename="Comidas" completeSearch />
       <p>Tela de Comida</p>
-      <Header />
-      <Row xs={ 2 } sm={ 3 } className="g-4" as="section">
-        { dataMeals && dataMeals.slice(0, LIMIT_OF_MEALS).map((meal, index) => (
-          <CardMeals key={ meal.idMeal } meal={ meal } index={ index } />
-        ))}
-      </Row>
+
+      { createCategoryButtons() }
+      { createRecipeCards() }
       <Footer />
     </div>
   );
-}
 
 Foods.propTypes = {
   location: PropTypes.shape({
