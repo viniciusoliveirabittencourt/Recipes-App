@@ -1,0 +1,14 @@
+.header {
+  align-items: center;
+  background: rgba(165, 42, 42, 0.603);
+  display: grid;
+  gap: 5rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 1rem;
+  text-align: center;
+}
+
+.header button {
+  background: none;
+  border: none;
+}
