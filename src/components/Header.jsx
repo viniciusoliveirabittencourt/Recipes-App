@@ -50,5 +50,9 @@ export default function Header({ pagename, completeSearch }) {
 
 Header.propTypes = {
   pagename: Proptypes.string.isRequired,
-  completeSearch: Proptypes.bool.isRequired,
+  completeSearch: Proptypes.bool,
+};
+
+Header.defaultProps = {
+  completeSearch: false,
 };

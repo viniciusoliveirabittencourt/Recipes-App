@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 function ExploreDrinksByIngredients() {
   return (
     <div>
-      <Header pagename="Explorar Ingredientes" completeSearch={ false } />
+      <Header pagename="Explorar Ingredientes" />
       <p>Tela de explorar bebidas por ingrediente</p>
       <Footer />
     </div>

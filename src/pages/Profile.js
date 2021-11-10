@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 function Profile() {
   return (
     <div>
-      <Header pagename="Perfil" completeSearch={ false } />
+      <Header pagename="Perfil" />
       <p>Tela de Perfil</p>
       <Footer />
     </div>

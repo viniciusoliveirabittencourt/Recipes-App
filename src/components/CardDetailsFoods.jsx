@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Card, Row } from 'react-bootstrap';
-import CardDrinks from './CardDrinks';
+import { Button, Card } from 'react-bootstrap';
+import RecipeCards from './RecipeCards';
 import shareIconImg from '../images/shareIcon.svg';
 import likeIconImg from '../images/whiteHeartIcon.svg';
 import useFetch from '../hooks/useFetch';
@@ -91,17 +91,15 @@ export default function CardDetailsFoods({ recipeMeal }) {
         <Card.Subtitle>
           Recomendações
         </Card.Subtitle>
-        <Row xs={ 2 } sm={ 3 } className="g-4">
-          { loading ? <Loading />
-            : dataRecommendations.slice(0, 2).map((recipe, index) => (
-              <CardDrinks
-                key={ index }
-                drink={ recipe }
-                index={ index }
-                dataID={ `${index}-recomendation-card` }
-              />
-            ))}
-        </Row>
+        { loading
+          ? <Loading />
+          : (
+            <RecipeCards
+              cardsData={ dataRecommendations }
+              type="Drink"
+              dataID="recomendation-card"
+            />
+          )}
       </Card.Body>
       <Card.Footer>
         <Button variant="success" data-testid="start-recipe-btn">
@@ -121,3 +119,12 @@ CardDetailsFoods.propTypes = {
     strYoutube: PropTypes.string.isRequired,
   }).isRequired,
 };
+
+// dataRecommendations.slice(0, 2).map((recipe, index) => (
+//   <CardDrinks
+//     key={ index }
+//     drink={ recipe }
+//     index={ index }
+//     dataID={ `${index}-recomendation-card` }
+//   />
+// ))

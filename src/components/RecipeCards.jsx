@@ -5,7 +5,7 @@ import { Card, Col, Row } from 'react-bootstrap';
 import '../styles/cards.css';
 
 export default function RecipeCards(props) {
-  const { cardsData, type } = props;
+  const { cardsData, type, dataID } = props;
 
   const STARTING_ON_INDEX_0 = 0;
   const GET_TWELVE_ELEMENTS = 12;
@@ -20,7 +20,7 @@ export default function RecipeCards(props) {
             <Col key={ cardData[`id${type}`] }>
               <Link to={ `/${pagePath}/${cardData[`id${type}`]}` }>
                 <Card
-                  data-testid={ `${index}-recipe-card` }
+                  data-testid={ `${index}-${dataID}` }
                   className="container-cards"
                 >
                   <Card.Img

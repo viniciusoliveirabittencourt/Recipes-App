@@ -1,6 +1,6 @@
 import React from 'react';
 
-function InProgressDrink() {
+function RecipeInProgressDrink() {
   return (
     <div>
       <p>Tela de receita em processo de bebida</p>
@@ -8,4 +8,4 @@ function InProgressDrink() {
   );
 }
 
-export default InProgressDrink;
+export default RecipeInProgressDrink;
