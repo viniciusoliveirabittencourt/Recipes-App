@@ -1,0 +1,30 @@
+.carousel {
+  align-items: center;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(6, 150px);
+  grid-template-rows: 1fr;
+  overflow-x: scroll;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.container-buttons-carousel {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.button-carousel {
+  align-items: center;
+  border: 0;
+  border-radius: 50%;
+  display: flex;
+  font-size: 1.5rem;
+  justify-content: center;
+  margin: 0.2rem;
+}

@@ -30,15 +30,5 @@
     margin-top: 1rem;
   }
 
-  .scroll-recomendation {
-    align-items: center;
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(6, 150px);
-    grid-template-rows: 1fr;
-    overflow: auto;
-    width: 100%;
-  }
-
 }
 

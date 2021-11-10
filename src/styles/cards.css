@@ -14,4 +14,8 @@
     font-size: 80%;
     margin-bottom: 0.25rem;
   }
+
+  .container-cards {
+    height: 100%;
+  }
 }

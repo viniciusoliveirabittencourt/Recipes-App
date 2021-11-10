@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Button, Card } from 'react-bootstrap';
 import RecipeCards from './RecipeCards';
 import shareIconImg from '../images/shareIcon.svg';
@@ -7,18 +8,23 @@ import likeIconImg from '../images/whiteHeartIcon.svg';
 import useFetch from '../hooks/useFetch';
 import Loading from './Loading';
 import '../styles/cardDetails.css';
+import Carousel from './Carousel';
 
 const MAX_INGREDIENTS = 20;
 
-export default function CardDetailsDrinks({ recipeDrink, doneRecipes, id }) {
-  const { data: dataRecommendations, loading } = useFetch('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals');
-  const showButtonStartRecipe = doneRecipes.some((doneRecipe) => doneRecipe.id === id);
+export default function CardDetailsDrinks(props) {
+  const { recipeDrink, doneRecipes, inProgressRecipes, id } = props;
   const {
     strDrink,
     strDrinkThumb,
     strInstructions,
     strAlcoholic,
   } = recipeDrink;
+
+  const { data: dataRecommendations, loading } = useFetch('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals');
+  const showButtonStartRecipe = doneRecipes.some((doneRecipe) => doneRecipe.id === id);
+  const showButtonContinueRecipe = Object.entries(inProgressRecipes).length > 0 
+    && inProgressRecipes.cocktails[id];
 
   const ingredients = [];
   const measure = [];
@@ -81,7 +87,7 @@ export default function CardDetailsDrinks({ recipeDrink, doneRecipes, id }) {
         <Card.Subtitle>
           Recomendações
         </Card.Subtitle>
-        <Card.Body className="scroll-recomendation">
+        <Carousel>
           { loading
             ? <Loading />
             : (
@@ -92,18 +98,32 @@ export default function CardDetailsDrinks({ recipeDrink, doneRecipes, id }) {
                 MAX_ELEMENTS={ 6 }
               />
             )}
-        </Card.Body>
+        </Carousel>
       </Card.Body>
       <Card.Footer>
-        <Button
-          variant="success"
-          data-testid="start-recipe-btn"
-          className="start-recipe-btn"
-          hidden={ showButtonStartRecipe }
-
-        >
-          Iniciar Receita
-        </Button>
+        {
+          !showButtonContinueRecipe ? (
+            <Link to={ `/comidas/${id}/in-progress` }>
+              <Button
+                variant="success"
+                data-testid="start-recipe-btn"
+                className="start-recipe-btn"
+                hidden={ showButtonStartRecipe }
+              >
+                Iniciar Receita
+              </Button>
+            </Link>
+          ) : (
+            <Button
+              variant="success"
+              data-testid="start-recipe-btn"
+              className="start-recipe-btn"
+              hidden={ showButtonStartRecipe }
+            >
+              Continuar Receita
+            </Button>
+          )
+        }
       </Card.Footer>
     </Card>
   );
@@ -117,9 +137,11 @@ CardDetailsDrinks.propTypes = {
     strAlcoholic: PropTypes.string.isRequired,
   }).isRequired,
   doneRecipes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  inProgressRecipes: PropTypes.objectOf(PropTypes.object),
   id: PropTypes.string.isRequired,
 };
 
 CardDetailsDrinks.defaultProps = {
   doneRecipes: [],
+  inProgressRecipes: [],
 };

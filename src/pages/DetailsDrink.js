@@ -7,8 +7,12 @@ import useFetch from '../hooks/useFetch';
 function DetailsDrink() {
   const { id } = useParams();
   const { data, loading } = useFetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`, 'drinks');
-  const getDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-
+  const getDoneRecipes = JSON.parse(
+    localStorage.getItem('doneRecipes'),
+  ) || [];
+  const getInProgressRecipes = JSON.parse(
+    localStorage.getItem('inProgressRecipes'),
+  ) || {};
   return (
     <section>
       { loading ? <Loading /> : data.map((drink, index) => (
@@ -16,6 +20,7 @@ function DetailsDrink() {
           key={ index }
           recipeDrink={ drink }
           doneRecipes={ getDoneRecipes }
+          inProgressRecipes={ getInProgressRecipes }
           id={ id }
         />
       ))}

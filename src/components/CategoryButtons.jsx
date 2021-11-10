@@ -13,13 +13,13 @@ export default function CategoryButtons(props) {
   const { buttonsData } = props;
   const STARTING_ON_INDEX_0 = 0;
   const GET_FIVE_ELEMENTS = 5;
-  console.log(isSearch);
 
   const manipulateCategoryState = (buttonCategory) => {
-    setIsSearch(isSearch ? !isSearch : isSearch);
     if (selectedCategory === buttonCategory) {
+      setIsSearch(isSearch ? !isSearch : isSearch);
       setSelectedCategory('search.php?s=');
     } else {
+      setIsSearch(isSearch ? !isSearch : isSearch);
       setSelectedCategory(buttonCategory);
     }
   };
@@ -31,11 +31,6 @@ export default function CategoryButtons(props) {
 
   return (
     <section
-      // style={ {
-      //   display: 'flex',
-      //   flexWrap: 'wrap',
-      //   justifyContent: 'space-evenly',
-      //   margin: '15px' } }
       className="container-buttons"
     >
       <button

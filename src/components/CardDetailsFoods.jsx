@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import RecipeCards from './RecipeCards';
+import Carousel from './Carousel';
 import shareIconImg from '../images/shareIcon.svg';
 import likeIconImg from '../images/whiteHeartIcon.svg';
 import useFetch from '../hooks/useFetch';
@@ -10,9 +12,13 @@ import '../styles/cardDetails.css';
 
 const MAX_INGREDIENTS = 20;
 
-export default function CardDetailsFoods({ recipeMeal, doneRecipes, id }) {
+export default function CardDetailsFoods(props) {
+  const { recipeMeal, doneRecipes, inProgressRecipes, id } = props;
   const { data: dataRecommendations, loading } = useFetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', 'drinks');
   const showButtonStartRecipe = doneRecipes.some((doneRecipe) => doneRecipe.id === id);
+  const showButtonContinueRecipe = Object.entries(inProgressRecipes).length > 0
+    && inProgressRecipes.meals[id];
+
   const {
     strMeal,
     strMealThumb,
@@ -92,7 +98,7 @@ export default function CardDetailsFoods({ recipeMeal, doneRecipes, id }) {
         <Card.Subtitle>
           Recomendações
         </Card.Subtitle>
-        <Card.Body className="scroll-recomendation">
+        <Carousel>
           { loading
             ? <Loading />
             : (
@@ -103,17 +109,32 @@ export default function CardDetailsFoods({ recipeMeal, doneRecipes, id }) {
                 MAX_ELEMENTS={ 6 }
               />
             )}
-        </Card.Body>
+        </Carousel>
       </Card.Body>
       <Card.Footer>
-        <Button
-          variant="success"
-          data-testid="start-recipe-btn"
-          className="start-recipe-btn"
-          hidden={ showButtonStartRecipe }
-        >
-          Iniciar Receita
-        </Button>
+        {
+          !showButtonContinueRecipe ? (
+            <Link to={ `/comidas/${id}/in-progress` }>
+              <Button
+                variant="success"
+                data-testid="start-recipe-btn"
+                className="start-recipe-btn"
+                hidden={ showButtonStartRecipe }
+              >
+                Iniciar Receita
+              </Button>
+            </Link>
+          ) : (
+            <Button
+              variant="success"
+              data-testid="start-recipe-btn"
+              className="start-recipe-btn"
+              hidden={ showButtonStartRecipe }
+            >
+              Continuar Receita
+            </Button>
+          )
+        }
       </Card.Footer>
     </Card>
   );
@@ -128,9 +149,11 @@ CardDetailsFoods.propTypes = {
     strYoutube: PropTypes.string.isRequired,
   }).isRequired,
   doneRecipes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  inProgressRecipes: PropTypes.objectOf(PropTypes.object),
   id: PropTypes.string.isRequired,
 };
 
 CardDetailsFoods.defaultProps = {
   doneRecipes: [],
+  inProgressRecipes: [],
 };
