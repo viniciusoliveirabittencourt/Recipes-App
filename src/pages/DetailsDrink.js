@@ -7,6 +7,7 @@ import useFetch from '../hooks/useFetch';
 function DetailsDrink() {
   const { id } = useParams();
   const { data, loading } = useFetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`, 'drinks');
+  const getDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
 
   return (
     <section>
@@ -14,6 +15,8 @@ function DetailsDrink() {
         <CardDetailsDrinks
           key={ index }
           recipeDrink={ drink }
+          doneRecipes={ getDoneRecipes }
+          id={ id }
         />
       ))}
     </section>

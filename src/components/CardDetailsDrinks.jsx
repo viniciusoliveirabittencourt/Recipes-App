@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
 import RecipeCards from './RecipeCards';
@@ -10,9 +10,9 @@ import '../styles/cardDetails.css';
 
 const MAX_INGREDIENTS = 20;
 
-export default function CardDetailsDrinks({ recipeDrink }) {
+export default function CardDetailsDrinks({ recipeDrink, doneRecipes, id }) {
   const { data: dataRecommendations, loading } = useFetch('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals');
-  const [startRecipe, setStartRecipe] = useState(false);
+  const showButtonStartRecipe = doneRecipes.some((doneRecipe) => doneRecipe.id === id);
   const {
     strDrink,
     strDrinkThumb,
@@ -98,9 +98,9 @@ export default function CardDetailsDrinks({ recipeDrink }) {
         <Button
           variant="success"
           data-testid="start-recipe-btn"
-          onClick={ () => { setStartRecipe(!startRecipe); } }
-          disabled={ startRecipe }
           className="start-recipe-btn"
+          hidden={ showButtonStartRecipe }
+
         >
           Iniciar Receita
         </Button>
@@ -116,4 +116,10 @@ CardDetailsDrinks.propTypes = {
     strInstructions: PropTypes.string.isRequired,
     strAlcoholic: PropTypes.string.isRequired,
   }).isRequired,
+  doneRecipes: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  id: PropTypes.string.isRequired,
+};
+
+CardDetailsDrinks.defaultProps = {
+  doneRecipes: [],
 };
