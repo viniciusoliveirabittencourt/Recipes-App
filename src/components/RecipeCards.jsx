@@ -23,7 +23,7 @@ export default function RecipeCards(props) {
               key={ cardData[`id${type}`] }
               role="button"
               tabIndex={ 0 }
-              onKeyDown={ cardData[`id${type}`] }
+              onKeyDown={ () => history.push(`/${pagePath}/${cardData[`id${type}`]}`) }
               onClick={ () => history.push(`/${pagePath}/${cardData[`id${type}`]}`) }
               style={ { width: '40%' } }
             >
