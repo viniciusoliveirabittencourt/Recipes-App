@@ -31,13 +31,24 @@ export default function Drinks() {
 
   const createRecipeCards = () => {
     if (drinks.length > EMPTY) {
-      return (<RecipeCards cardsData={ drinks } type="Drink" />);
+      return (
+        <RecipeCards
+          cardsData={ drinks }
+          type="Drink"
+          dataID="recipe-card"
+        />);
     }
   };
 
   const createSearchRecipeCards = () => {
     if (dataSearchDrinks.length > EMPTY) {
-      return (<RecipeCards cardsData={ dataSearchDrinks } type="Drink" />);
+      return (
+        <RecipeCards
+          cardsData={ dataSearchDrinks }
+          type="Drink"
+          dataID="recipe-card"
+        />
+      );
     }
   };
 

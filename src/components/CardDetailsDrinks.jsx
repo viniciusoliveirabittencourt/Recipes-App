@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Card, Row } from 'react-bootstrap';
-import CardMeals from './CardMeals';
+import { Button, Card } from 'react-bootstrap';
+import RecipeCards from './RecipeCards';
 import shareIconImg from '../images/shareIcon.svg';
 import likeIconImg from '../images/whiteHeartIcon.svg';
 import useFetch from '../hooks/useFetch';
@@ -81,17 +81,15 @@ export default function CardDetailsDrinks({ recipeDrink }) {
         <Card.Subtitle>
           Recomendações
         </Card.Subtitle>
-        <Row xs={ 2 } sm={ 3 } className="g-4">
-          { loading ? <Loading />
-            : dataRecommendations.slice(0, 2).map((recipe, index) => (
-              <CardMeals
-                key={ index }
-                meal={ recipe }
-                index={ index }
-                dataID={ `${index}-recomendation-card` }
-              />
-            ))}
-        </Row>
+        { loading
+          ? <Loading />
+          : (
+            <RecipeCards
+              cardsData={ dataRecommendations }
+              type="Meal"
+              dataID="recomendation-card"
+            />
+          )}
       </Card.Body>
       <Card.Footer>
         <Button variant="success" data-testid="start-recipe-btn">
@@ -108,6 +106,5 @@ CardDetailsDrinks.propTypes = {
     strDrinkThumb: PropTypes.string.isRequired,
     strInstructions: PropTypes.string.isRequired,
     strAlcoholic: PropTypes.string.isRequired,
-    strYoutube: PropTypes.string.isRequired,
   }).isRequired,
 };

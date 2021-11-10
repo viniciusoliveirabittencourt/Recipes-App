@@ -4,7 +4,7 @@ import Loading from '../components/Loading';
 import CardDetailsFoods from '../components/CardDetailsFoods';
 import useFetch from '../hooks/useFetch';
 
-function DetailFood() {
+function DetailsFood() {
   const { id } = useParams();
   const { data, loading } = useFetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`, 'meals');
 
@@ -14,11 +14,10 @@ function DetailFood() {
         <CardDetailsFoods
           key={ index }
           recipeMeal={ meal }
-          index={ index }
         />
       ))}
     </section>
   );
 }
 
-export default DetailFood;
+export default DetailsFood;

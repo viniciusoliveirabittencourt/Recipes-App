@@ -119,12 +119,3 @@ CardDetailsFoods.propTypes = {
     strYoutube: PropTypes.string.isRequired,
   }).isRequired,
 };
-
-// dataRecommendations.slice(0, 2).map((recipe, index) => (
-//   <CardDrinks
-//     key={ index }
-//     drink={ recipe }
-//     index={ index }
-//     dataID={ `${index}-recomendation-card` }
-//   />
-// ))

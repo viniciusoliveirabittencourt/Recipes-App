@@ -32,13 +32,23 @@ export default function Foods() {
 
   const createRecipeCards = () => {
     if (meals.length > EMPTY) {
-      return (<RecipeCards cardsData={ meals } type="Meal" />);
+      return (
+        <RecipeCards
+          cardsData={ meals }
+          type="Meal"
+          dataID="recipe-card"
+        />);
     }
   };
 
   const createSearchRecipeCards = () => {
     if (dataSearchMeals.length > EMPTY) {
-      return (<RecipeCards cardsData={ dataSearchMeals } type="Meal" />);
+      return (
+        <RecipeCards
+          cardsData={ dataSearchMeals }
+          type="Meal"
+          dataID="recipe-card"
+        />);
     }
   };
 
