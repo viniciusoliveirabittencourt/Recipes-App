@@ -12,9 +12,10 @@ export default function CategoryButtons(props) {
   const { buttonsData } = props;
   const STARTING_ON_INDEX_0 = 0;
   const GET_FIVE_ELEMENTS = 5;
+  console.log(isSearch);
 
   const manipulateCategoryState = (buttonCategory) => {
-    setIsSearch(!isSearch);
+    setIsSearch(isSearch ? !isSearch : isSearch);
     if (selectedCategory === buttonCategory) {
       setSelectedCategory('search.php?s=');
     } else {
@@ -24,7 +25,7 @@ export default function CategoryButtons(props) {
 
   const manipulateCategoryAll = () => {
     setSelectedCategory('search.php?s=');
-    setIsSearch(!isSearch);
+    setIsSearch(isSearch ? !isSearch : isSearch);
   };
 
   return (
