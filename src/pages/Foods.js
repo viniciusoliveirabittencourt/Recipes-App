@@ -16,6 +16,11 @@ export default function Foods() {
     fetchCategoriesAndRecipes('meals');
   }, [selectedCategory]);
 
+<<<<<<< HEAD
+export default function Foods() {
+  const { dataMeals } = useAppContext();
+  return (
+=======
   const createCategoryButtons = () => {
     if (mealCategories.length > EMPTY) {
       return (<CategoryButtons buttonsData={ mealCategories } />);
@@ -29,14 +34,19 @@ export default function Foods() {
   };
 
   const standardReturnElements = (
+>>>>>>> 3b02d5f8cb90d8efb5fa0fb0f27570d1cc27fb75
     <div>
-      <p>Comidas</p>
-      <Header />
+      <Header pagename="Comidas" completeSearch />
+      <p>Tela de Comida</p>
+
       { createCategoryButtons() }
       { createRecipeCards() }
       <Footer />
     </div>
   );
 
-  return loading ? <Loading /> : standardReturnElements;
-}
+Foods.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
+};
