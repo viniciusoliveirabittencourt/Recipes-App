@@ -1,25 +1,54 @@
-import React from 'react';
-import { Row } from 'react-bootstrap';
-import CardDrinks from '../components/CardDrinks';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
+import React, { useEffect } from 'react';
 import { useAppContext } from '../context/AppProvider';
+import CategoryButtons from '../components/CategoryButtons';
+import RecipeCards from '../components/RecipeCards';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import Loading from '../components/Loading';
 
-const LIMIT_OF_DRINKS = 12;
+export default function Drinks() {
+  const {
+    fetchCategoriesAndRecipes,
+    drinkCategories,
+    drinks,
+    loading,
+    selectedCategory,
+    dataSearchDrinks,
+    isSearch,
+  } = useAppContext();
+  const EMPTY = 0;
 
-function Drinks() {
-  const { dataDrinks } = useAppContext();
-  return (
+  useEffect(() => {
+    fetchCategoriesAndRecipes('drinks');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory]);
+
+  const createCategoryButtons = () => {
+    if (drinkCategories.length > EMPTY) {
+      return (<CategoryButtons buttonsData={ drinkCategories } />);
+    }
+  };
+
+  const createRecipeCards = () => {
+    if (drinks.length > EMPTY) {
+      return (<RecipeCards cardsData={ drinks } type="Drink" />);
+    }
+  };
+
+  const createSearchRecipeCards = () => {
+    if (dataSearchDrinks.length > EMPTY) {
+      return (<RecipeCards cardsData={ dataSearchDrinks } type="Drink" />);
+    }
+  };
+
+  const standardReturnElements = (
     <>
-      <Header />
-      <Row xs={ 2 } sm={ 3 } className="g-4" as="section">
-        { dataDrinks && dataDrinks.slice(0, LIMIT_OF_DRINKS).map((drink, index) => (
-          <CardDrinks key={ drink.idDrink } drink={ drink } index={ index } />
-        ))}
-      </Row>
+      <Header pagename="Bebidas" completeSearch />
+      { createCategoryButtons() }
+      { isSearch ? createSearchRecipeCards() : createRecipeCards() }
       <Footer />
     </>
   );
-}
 
-export default Drinks;
+  return loading ? <Loading /> : standardReturnElements;
+}

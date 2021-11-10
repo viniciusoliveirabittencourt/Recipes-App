@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function ExploreFood() {
@@ -18,6 +19,7 @@ function ExploreFood() {
 
   return (
     <div>
+      <Header pagename="Explorar Comidas " completeSearch={ false } />
       <p>Tela de explorar comidas</p>
       <Link to="/explorar/comidas/ingredientes">
         <button

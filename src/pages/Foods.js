@@ -1,27 +1,55 @@
-import React from 'react';
-import { Row } from 'react-bootstrap';
+import React, { useEffect } from 'react';
 import { useAppContext } from '../context/AppProvider';
-import CardMeals from '../components/CardMeals';
-import Footer from '../components/Footer';
+import CategoryButtons from '../components/CategoryButtons';
+import RecipeCards from '../components/RecipeCards';
 import Header from '../components/Header';
-import '../styles/foods.css';
+import Footer from '../components/Footer';
+import Loading from '../components/Loading';
 
-const LIMIT_OF_MEALS = 12;
+export default function Foods() {
+  const {
+    fetchCategoriesAndRecipes,
+    mealCategories,
+    meals,
+    loading,
+    selectedCategory,
+    dataSearchMeals,
+    isSearch,
+  } = useAppContext();
 
-function Foods() {
-  const { dataMeals } = useAppContext();
-  return (
-    <div>
-      <p>Tela de Comida</p>
-      <Header />
-      <Row xs={ 2 } sm={ 3 } className="g-4" as="section">
-        { dataMeals && dataMeals.slice(0, LIMIT_OF_MEALS).map((meal, index) => (
-          <CardMeals key={ meal.idMeal } meal={ meal } index={ index } />
-        ))}
-      </Row>
+  const EMPTY = 0;
+
+  useEffect(() => {
+    fetchCategoriesAndRecipes('meals');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory]);
+
+  const createCategoryButtons = () => {
+    if (mealCategories.length > EMPTY) {
+      return (<CategoryButtons buttonsData={ mealCategories } />);
+    }
+  };
+
+  const createRecipeCards = () => {
+    if (meals.length > EMPTY) {
+      return (<RecipeCards cardsData={ meals } type="Meal" />);
+    }
+  };
+
+  const createSearchRecipeCards = () => {
+    if (dataSearchMeals.length > EMPTY) {
+      return (<RecipeCards cardsData={ dataSearchMeals } type="Meal" />);
+    }
+  };
+
+  const standardReturnElements = (
+    <>
+      <Header pagename="Comidas" completeSearch />
+      { createCategoryButtons() }
+      { isSearch ? createSearchRecipeCards() : createRecipeCards() }
       <Footer />
-    </div>
+    </>
   );
-}
 
-export default Foods;
+  return loading ? <Loading /> : standardReturnElements;
+}

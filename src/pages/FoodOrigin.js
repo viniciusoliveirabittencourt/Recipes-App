@@ -1,10 +1,11 @@
 import React from 'react';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function ExploreFoodsByOrigin() {
   return (
     <div>
-      <p>Tela de explorar comidas por local de origem</p>
+      <Header pagename="Explorar" completeSearch={ false } />
       <Footer />
     </div>
   );
