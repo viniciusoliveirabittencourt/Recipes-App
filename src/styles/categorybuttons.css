@@ -1,0 +1,15 @@
+.container-buttons {
+  display: grid;
+  gap: 0.25rem;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr;
+  padding: 0.25rem;
+}
+
+.category-buttons {
+  background: rgba(165, 42, 42, 0.342);
+  border: none;
+  border-radius: 1.5rem;
+  line-height: 1.5rem;
+  padding: 0 0.5rem;
+}

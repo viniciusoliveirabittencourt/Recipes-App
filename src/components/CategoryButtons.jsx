@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useAppContext } from '../context/AppProvider';
+import '../styles/categorybuttons.css';
 
 export default function CategoryButtons(props) {
   const {
@@ -30,17 +31,18 @@ export default function CategoryButtons(props) {
 
   return (
     <div
-      style={ {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-evenly',
-        margin: '15px' } }
+      // style={ {
+      //   display: 'flex',
+      //   flexWrap: 'wrap',
+      //   justifyContent: 'space-evenly',
+      //   margin: '15px' } }
+      className="container-buttons"
     >
       <button
         type="button"
         data-testid="All-category-filter"
         onClick={ () => manipulateCategoryAll() }
-        style={ { width: '32%', margin: '5px 0px' } }
+        className="category-buttons"
       >
         All
       </button>
@@ -56,7 +58,7 @@ export default function CategoryButtons(props) {
               onClick={ () => manipulateCategoryState(
                 `filter.php?c=${buttonData.strCategory}`,
               ) }
-              style={ { width: '32%', margin: '5px 0px' } }
+              className="category-buttons"
             >
               { buttonData.strCategory }
             </button>
