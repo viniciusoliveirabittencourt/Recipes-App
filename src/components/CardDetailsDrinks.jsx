@@ -23,7 +23,7 @@ export default function CardDetailsDrinks(props) {
 
   const { data: dataRecommendations, loading } = useFetch('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals');
   const showButtonStartRecipe = doneRecipes.some((doneRecipe) => doneRecipe.id === id);
-  const showButtonContinueRecipe = Object.entries(inProgressRecipes).length > 0 
+  const showButtonContinueRecipe = Object.entries(inProgressRecipes).length > 0
     && inProgressRecipes.cocktails[id];
 
   const ingredients = [];
