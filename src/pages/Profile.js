@@ -34,6 +34,7 @@ function Profile() {
         >
           Receitas Feitas
         </button>
+
         <button
           data-testid="profile-favorite-btn"
           type="button"
@@ -41,6 +42,7 @@ function Profile() {
         >
           Receitas Favoritas
         </button>
+
         <button
           data-testid="profile-logout-btn"
           type="button"
