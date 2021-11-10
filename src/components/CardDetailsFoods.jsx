@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
 import RecipeCards from './RecipeCards';
@@ -12,6 +12,7 @@ const MAX_INGREDIENTS = 20;
 
 export default function CardDetailsFoods({ recipeMeal }) {
   const { data: dataRecommendations, loading } = useFetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', 'drinks');
+  const [startRecipe, setStartRecipe] = useState(false);
   const {
     strMeal,
     strMealThumb,
@@ -91,18 +92,27 @@ export default function CardDetailsFoods({ recipeMeal }) {
         <Card.Subtitle>
           Recomendações
         </Card.Subtitle>
-        { loading
-          ? <Loading />
-          : (
-            <RecipeCards
-              cardsData={ dataRecommendations }
-              type="Drink"
-              dataID="recomendation-card"
-            />
-          )}
+        <Card.Body className="scroll-recomendation">
+          { loading
+            ? <Loading />
+            : (
+              <RecipeCards
+                cardsData={ dataRecommendations }
+                type="Drink"
+                dataID="recomendation-card"
+                MAX_ELEMENTS={ 6 }
+              />
+            )}
+        </Card.Body>
       </Card.Body>
       <Card.Footer>
-        <Button variant="success" data-testid="start-recipe-btn">
+        <Button
+          variant="success"
+          data-testid="start-recipe-btn"
+          onClick={ () => { setStartRecipe(!startRecipe); } }
+          disabled={ startRecipe }
+          className="start-recipe-btn"
+        >
           Iniciar Receita
         </Button>
       </Card.Footer>
