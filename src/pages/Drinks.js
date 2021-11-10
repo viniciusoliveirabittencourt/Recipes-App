@@ -8,12 +8,19 @@ import Loading from '../components/Loading';
 
 export default function Drinks() {
   const {
-    fetchCategoriesAndRecipes, drinkCategories, drinks, loading, selectedCategory,
+    fetchCategoriesAndRecipes,
+    drinkCategories,
+    drinks,
+    loading,
+    selectedCategory,
+    dataSearchDrinks,
+    isSearch,
   } = useAppContext();
   const EMPTY = 0;
 
   useEffect(() => {
     fetchCategoriesAndRecipes('drinks');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
   const createCategoryButtons = () => {
@@ -28,11 +35,17 @@ export default function Drinks() {
     }
   };
 
+  const createSearchRecipeCards = () => {
+    if (dataSearchDrinks.length > EMPTY) {
+      return (<RecipeCards cardsData={ dataSearchDrinks } type="Drink" />);
+    }
+  };
+
   const standardReturnElements = (
     <div>
-      <Header />
+      <Header pagename="Bebidas" completeSearch />
       { createCategoryButtons() }
-      { createRecipeCards() }
+      { isSearch ? createSearchRecipeCards() : createRecipeCards() }
       <Footer />
     </div>
   );
