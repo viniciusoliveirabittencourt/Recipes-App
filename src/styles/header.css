@@ -1,6 +1,6 @@
 .header {
   align-items: center;
-  background: rgba(165, 42, 42, 0.603);
+  background: var(--background);
   display: grid;
   gap: 4rem;
   grid-template-columns: 1fr 1fr 1fr;

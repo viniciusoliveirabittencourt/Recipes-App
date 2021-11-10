@@ -30,7 +30,7 @@ export default function CategoryButtons(props) {
   };
 
   return (
-    <div
+    <section
       // style={ {
       //   display: 'flex',
       //   flexWrap: 'wrap',
@@ -64,7 +64,7 @@ export default function CategoryButtons(props) {
             </button>
           ))
       }
-    </div>
+    </section>
   );
 }
 

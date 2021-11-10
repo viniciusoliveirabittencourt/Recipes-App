@@ -42,12 +42,12 @@ export default function Drinks() {
   };
 
   const standardReturnElements = (
-    <div>
+    <>
       <Header pagename="Bebidas" completeSearch />
       { createCategoryButtons() }
       { isSearch ? createSearchRecipeCards() : createRecipeCards() }
       <Footer />
-    </div>
+    </>
   );
 
   return loading ? <Loading /> : standardReturnElements;

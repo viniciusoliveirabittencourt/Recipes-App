@@ -43,12 +43,12 @@ export default function Foods() {
   };
 
   const standardReturnElements = (
-    <div>
+    <>
       <Header pagename="Comidas" completeSearch />
       { createCategoryButtons() }
       { isSearch ? createSearchRecipeCards() : createRecipeCards() }
       <Footer />
-    </div>
+    </>
   );
 
   return loading ? <Loading /> : standardReturnElements;
