@@ -8,13 +8,20 @@ import Loading from '../components/Loading';
 
 export default function Foods() {
   const {
-    fetchCategoriesAndRecipes, mealCategories, meals, loading, selectedCategory,
+    fetchCategoriesAndRecipes,
+    mealCategories,
+    meals,
+    loading,
+    selectedCategory,
+    dataSearchMeals,
+    isSearch,
   } = useAppContext();
 
   const EMPTY = 0;
 
   useEffect(() => {
     fetchCategoriesAndRecipes('meals');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
   const createCategoryButtons = () => {
@@ -29,13 +36,19 @@ export default function Foods() {
     }
   };
 
+  const createSearchRecipeCards = () => {
+    if (dataSearchMeals.length > EMPTY) {
+      return (<RecipeCards cardsData={ dataSearchMeals } type="Meal" />);
+    }
+  };
+
   const standardReturnElements = (
-    <div>
+    <>
       <Header pagename="Comidas" completeSearch />
       { createCategoryButtons() }
-      { createRecipeCards() }
+      { isSearch ? createSearchRecipeCards() : createRecipeCards() }
       <Footer />
-    </div>
+    </>
   );
 
   return loading ? <Loading /> : standardReturnElements;

@@ -1,5 +1,5 @@
 .footer {
-  background: rgba(165, 42, 42, 0.603);
+  background: var(--background);
   bottom: 0;
   display: flex;
   justify-content: space-around;
