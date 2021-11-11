@@ -1,72 +1,34 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
+import '../styles/header.css';
 
-export default class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      input: false,
-    };
-    this.changeClick = this.changeClick.bind(this);
-  }
+export default function Header({ pagename, completeSearch }) {
+  const [isShowSearchBar, setIsShowSearchBar] = useState(false);
 
-  changeClick() {
-    const { input } = this.state;
-    this.setState({
-      input: !input,
-    });
-  }
-
-  fullHeader() {
-    const { input } = this.state;
+  function buttonSearch() {
     return (
-      <div>
-        <button
-          type="button"
-          onClick={ this.changeClick }
+      <button
+        type="button"
+        onClick={ () => setIsShowSearchBar(!isShowSearchBar) }
+        src={ searchIcon }
+        data-testid="search-top-btn"
+        aria-label="search-input"
+      >
+        <img
           src={ searchIcon }
-          data-testid="search-top-btn"
-          aria-label="search-input"
-        >
-          <img
-            src={ searchIcon }
-            alt="search icon"
-            id="search"
-          />
-        </button>
-
-        { input && (
-          <label
-            htmlFor="search-input"
-          >
-            <input
-              type="text"
-              placeholder="Search"
-              id="input-search"
-              name="search-input"
-              data-testid="search-input"
-            />
-          </label>)}
-      </div>
+          alt="search icon"
+          id="search-icon"
+        />
+      </button>
     );
   }
-
-  smallHeader() {
-    return (
-      <>
-      </>
-    );
-  }
-
-  render() {
-    const { pagename, completeSearch } = this.props;
-
-    return (
-
-      <header>
+  return (
+    <>
+      <header className="header">
         <Link to="/perfil">
           <img
             src={ profileIcon }
@@ -79,17 +41,18 @@ export default class Header extends Component {
         >
           { pagename}
         </h1>
-        { completeSearch ? this.fullHeader() : this.smallHeader() }
-
+        { completeSearch && buttonSearch() }
       </header>
-    );
-  }
+      { isShowSearchBar && <SearchBar /> }
+    </>
+  );
 }
 
 Header.propTypes = {
-  location: Proptypes.shape({
-    pathname: Proptypes.string,
-  }).isRequired,
   pagename: Proptypes.string.isRequired,
-  completeSearch: Proptypes.bool.isRequired,
+  completeSearch: Proptypes.bool,
+};
+
+Header.defaultProps = {
+  completeSearch: false,
 };

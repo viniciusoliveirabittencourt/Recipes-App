@@ -8,7 +8,14 @@ const notFound = 'Sinto muito, não encontramos nenhuma receita para esses filtr
 export default function SearchBar() {
   const location = useLocation();
   const history = useHistory();
-  const { dataMeals, dataDrinks, setDataMeals, setDataDrinks } = useAppContext();
+  const {
+    dataSearchMeals,
+    dataSearchDrinks,
+    setDataSearchMeals,
+    setDataSearchDrinks,
+    setIsSearch,
+    isSearch,
+  } = useAppContext();
   const [search, setSearch] = useState('');
   const [searchParameters, setSearchParameters] = useState('');
 
@@ -29,25 +36,26 @@ export default function SearchBar() {
       const response = await fetch(`${baseURL}${url}`);
       const json = await response.json();
       if (json.meals === null || json.drinks === null) return global.alert(notFound);
-      if (isMealsOrDrinks) setDataMeals(json.meals);
-      else setDataDrinks(json.drinks);
+      if (isMealsOrDrinks) setDataSearchMeals(json.meals);
+      else setDataSearchDrinks(json.drinks);
     } catch (error) {
       console.error(error);
       global.alert(notFound);
     }
+    setIsSearch(!isSearch);
     setSearch('');
     setSearchParameters('');
   }
 
   useEffect(() => {
-    if (dataMeals && dataMeals.length === 1) {
-      history.push(`/comidas/${dataMeals[0].idMeal}`);
+    if (dataSearchMeals && dataSearchMeals.length === 1) {
+      history.push(`/comidas/${dataSearchMeals[0].idMeal}`);
     }
-    if (dataDrinks && dataDrinks.length === 1) {
-      history.push(`/bebidas/${dataDrinks[0].idDrink}`);
+    if (dataSearchDrinks && dataSearchDrinks.length === 1) {
+      history.push(`/bebidas/${dataSearchDrinks[0].idDrink}`);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dataMeals, dataDrinks]);
+  }, [dataSearchMeals, dataSearchDrinks]);
 
   function handleSubmitSearch(e) {
     e.preventDefault();

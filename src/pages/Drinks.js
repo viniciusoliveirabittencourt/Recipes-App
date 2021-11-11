@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Row } from 'react-bootstrap';
 import { useAppContext } from '../context/AppProvider';
 import CategoryButtons from '../components/CategoryButtons';
 import RecipeCards from '../components/RecipeCards';
@@ -8,12 +9,18 @@ import Loading from '../components/Loading';
 
 export default function Drinks() {
   const {
-    fetchCategoriesAndRecipes, drinkCategories,
-    drinks, loading, selectedCategory,
+    fetchCategoriesAndRecipes,
+    drinkCategories,
+    drinks,
+    loading,
+    selectedCategory,
+    dataSearchDrinks,
+    isSearch,
   } = useAppContext();
 
   useEffect(() => {
     fetchCategoriesAndRecipes('drinks');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
   const createCategoryButtons = () => {
@@ -23,18 +30,42 @@ export default function Drinks() {
   };
 
   const createRecipeCards = () => {
-    if (drinks.length > 0) {
-      return (<RecipeCards cardsData={ drinks } type="Drink" />);
+    if (drinks.length > EMPTY) {
+      return (
+        <Row xs={ 2 } md={ 2 } className="g-2" as="section">
+          <RecipeCards
+            cardsData={ drinks }
+            type="Drink"
+            dataID="recipe-card"
+            MAX_ELEMENTS={ 12 }
+          />
+        </Row>
+      );
+    }
+  };
+
+  const createSearchRecipeCards = () => {
+    if (dataSearchDrinks.length > EMPTY) {
+      return (
+        <Row xs={ 2 } md={ 2 } className="g-2" as="section">
+          <RecipeCards
+            cardsData={ dataSearchDrinks }
+            type="Drink"
+            dataID="recipe-card"
+            MAX_ELEMENTS={ 12 }
+          />
+        </Row>
+      );
     }
   };
 
   const standardReturnElements = (
-    <div>
-      <Header pagename="Comidas" completeSearch />
+    <>
+      <Header pagename="Bebidas" completeSearch />
       { createCategoryButtons() }
-      { createRecipeCards() }
+      { isSearch ? createSearchRecipeCards() : createRecipeCards() }
       <Footer />
-    </div>
+    </>
   );
 
   return loading ? <Loading /> : standardReturnElements;

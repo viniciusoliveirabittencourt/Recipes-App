@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import AppContext from './AppContext';
 
 export function AppProvider({ children }) {
-  const [loading, setLoading] = useState(false);
-  const [mealCategories, setMealCategories] = useState([]);
+  const [dataSearchMeals, setDataSearchMeals] = useState([]);
+  const [dataSearchDrinks, setDataSearchDrinks] = useState([]);
+  const [isSearch, setIsSearch] = useState(false);
   const [meals, setMeals] = useState([]);
-  const [drinkCategories, setDrinkCategories] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [mealCategories, setMealCategories] = useState([]);
+  const [drinkCategories, setDrinkCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('search.php?s=');
+  const [loading, setLoading] = useState(false);
 
   const requestFromApi = async (url) => {
     const fetchData = await fetch(url);
@@ -38,14 +41,13 @@ export function AppProvider({ children }) {
     setLoading(false);
   };
 
-  const [dataMeals, setDataMeals] = useState([]);
-  const [dataDrinks, setDataDrinks] = useState([]);
-
   const context = {
-    dataMeals,
-    setDataMeals,
-    dataDrinks,
-    setDataDrinks,
+    dataSearchMeals,
+    setDataSearchMeals,
+    dataSearchDrinks,
+    setDataSearchDrinks,
+    isSearch,
+    setIsSearch,
     fetchCategoriesAndRecipes,
     loading,
     mealCategories,

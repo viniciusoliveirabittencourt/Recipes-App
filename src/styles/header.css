@@ -1,0 +1,13 @@
+.header {
+  align-items: center;
+  background: var(--background);
+  display: grid;
+  gap: 4rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 1rem;
+}
+
+.header button {
+  background: none;
+  border: none;
+}

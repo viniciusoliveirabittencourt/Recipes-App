@@ -1,7 +1,7 @@
 import React from 'react';
 import Footer from '../components/Footer';
 
-function IngredientsDrink() {
+function ExploreDrinksByIngredients() {
   return (
     <div>
       <p>Tela de explorar bebidas por ingrediente</p>
@@ -10,4 +10,4 @@ function IngredientsDrink() {
   );
 }
 
-export default IngredientsDrink;
+export default ExploreDrinksByIngredients;

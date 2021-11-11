@@ -1,53 +1,55 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Card, Col } from 'react-bootstrap';
+import '../styles/cards.css';
 
 export default function RecipeCards(props) {
-  const { cardsData, type } = props;
+  const { cardsData, type, dataID, MAX_ELEMENTS } = props;
 
   const STARTING_ON_INDEX_0 = 0;
-  const GET_TWELVE_ELEMENTS = 12;
-  const history = useHistory();
   const pagePath = type === 'Meal' ? 'comidas' : 'bebidas';
 
   return (
-    <div
-      style={ { display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly' } }
-    >
+    <>
       {
         [...cardsData]
-          .splice(STARTING_ON_INDEX_0, GET_TWELVE_ELEMENTS)
+          .splice(STARTING_ON_INDEX_0, MAX_ELEMENTS)
           .map((cardData, index) => (
-            <div
-              data-testid={ `${index}-recipe-card` }
-              key={ cardData[`id${type}`] }
-              role="button"
-              tabIndex={ 0 }
-              onKeyDown={ () => history.push(`/${pagePath}/${cardData[`id${type}`]}`) }
-              onClick={ () => history.push(`/${pagePath}/${cardData[`id${type}`]}`) }
-              style={ { width: '40%' } }
-            >
-              <img
-                src={ cardData[`str${type}Thumb`] }
-                alt={ cardData[`str${type}`] }
-                data-testid={ `${index}-card-img` }
-                style={ { width: '100%' } }
-              />
-              <div>
-                <h4
-                  data-testid={ `${index}-card-name` }
+            <Col key={ cardData[`id${type}`] }>
+              <Link to={ `/${pagePath}/${cardData[`id${type}`]}` }>
+                <Card
+                  data-testid={ `${index}-${dataID}` }
+                  className="container-cards"
                 >
-                  { cardData[`str${type}`] }
-                </h4>
-              </div>
-            </div>
+                  <Card.Img
+                    src={ cardData[`str${type}Thumb`] }
+                    alt={ cardData[`str${type}`] }
+                    data-testid={ `${index}-card-img` }
+                    className="card-img"
+                  />
+                  <Card.Body>
+                    <Card.Text>
+                      { cardData.strCategory }
+                    </Card.Text>
+                    <Card.Subtitle
+                      data-testid={ `${index}-card-name` }
+                    >
+                      { cardData[`str${type}`] }
+                    </Card.Subtitle>
+                  </Card.Body>
+                </Card>
+              </Link>
+            </Col>
           ))
       }
-    </div>
+    </>
   );
 }
 
 RecipeCards.propTypes = {
-  cardsData: PropTypes.array,
-  recipeType: PropTypes.string,
-}.isRequired;
+  cardsData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  type: PropTypes.string.isRequired,
+  dataID: PropTypes.string.isRequired,
+  MAX_ELEMENTS: PropTypes.number.isRequired,
+};
