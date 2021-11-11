@@ -35,7 +35,7 @@ export default function LikeButton({ id, recipe, type, dataID }) {
   return (
     <button
       type="button"
-      data-testid={ dataID || 'favorite-btn' }
+      data-testid={ dataID }
       onClick={ () => saveFavoriteRecipe() }
       src={ srcIconHeart }
     >
@@ -45,8 +45,12 @@ export default function LikeButton({ id, recipe, type, dataID }) {
 }
 
 LikeButton.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   recipe: PropTypes.objectOf(PropTypes.string).isRequired,
   type: PropTypes.string.isRequired,
-  dataID: PropTypes.string.isRequired,
+  dataID: PropTypes.string,
+};
+
+LikeButton.defaultProps = {
+  dataID: 'favorite-btn',
 };

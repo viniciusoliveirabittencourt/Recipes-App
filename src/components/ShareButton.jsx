@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Copy from 'clipboard-copy';
 import { Card } from 'react-bootstrap';
-import shareIconImg from '../images/shareIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 export default function ShareButton({ pathname, dataID }) {
   const [copied, setCopied] = useState(false);
@@ -16,10 +16,11 @@ export default function ShareButton({ pathname, dataID }) {
     <>
       <button
         type="button"
-        data-testid={ dataID || 'share-btn' }
+        data-testid={ dataID }
         onClick={ () => handleCopyRecipe() }
+        src={ shareIcon }
       >
-        <img src={ shareIconImg } alt="Compartilhar Receita" />
+        <img src={ shareIcon } alt="Compartilhar Receita" />
       </button>
       {
         copied && (
@@ -34,5 +35,9 @@ export default function ShareButton({ pathname, dataID }) {
 
 ShareButton.propTypes = {
   pathname: PropTypes.string.isRequired,
-  dataID: PropTypes.string.isRequired,
+  dataID: PropTypes.string,
+};
+
+ShareButton.defaultProps = {
+  dataID: 'share-btn',
 };

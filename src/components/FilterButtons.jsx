@@ -29,7 +29,7 @@ export default function FilterButtons({ favoriteRecipes, onSetFilterFavorites })
         onClick={ (e) => handleClickFilterButton(e) }
         data-testid="filter-by-food-btn"
       >
-        Food
+        Foods
 
       </button>
       <button
