@@ -48,6 +48,8 @@ export default function RecipeCards(props) {
 }
 
 RecipeCards.propTypes = {
-  cardsData: PropTypes.array,
-  recipeType: PropTypes.string,
-}.isRequired;
+  cardsData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  type: PropTypes.string.isRequired,
+  dataID: PropTypes.string.isRequired,
+  MAX_ELEMENTS: PropTypes.number.isRequired,
+};
