@@ -29,7 +29,7 @@ export default function CardDetailsFoods(props) {
           <Card.Text data-testid="recipe-category">{ strCategory }</Card.Text>
         </div>
         <div>
-          <LikeButton id={ id } />
+          <LikeButton id={ id } type="comida" recipe={ recipeMeal } />
           <ShareButton pathname={ location.pathname } />
         </div>
       </Card.Body>

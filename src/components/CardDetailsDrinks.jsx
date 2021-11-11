@@ -28,7 +28,7 @@ export default function CardDetailsDrinks(props) {
           <Card.Text data-testid="recipe-category">{ strAlcoholic }</Card.Text>
         </div>
         <div>
-          <LikeButton id={ id } />
+          <LikeButton id={ id } type="bebida" recipe={ recipeDrink } />
           <ShareButton pathname={ location.pathname } />
         </div>
       </Card.Body>
