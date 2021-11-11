@@ -1,0 +1,15 @@
+.filter-buttons {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  padding: 0.5rem;
+}
+
+.filter-buttons button {
+  background: var(--color-buttons);
+  border: none;
+  border-radius: 1.5rem;
+  line-height: 1.5rem;
+  padding: 0 0.5rem;
+}

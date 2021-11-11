@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-export default function LikeButton({ id, recipe, type }) {
+export default function LikeButton({ id, recipe, type, dataID }) {
   const getFavoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   const isAlreadyFavorite = getFavoriteRecipes
     .some((favoriteRecipe) => favoriteRecipe.id === id);
@@ -35,7 +35,7 @@ export default function LikeButton({ id, recipe, type }) {
   return (
     <button
       type="button"
-      data-testid="favorite-btn"
+      data-testid={ dataID || 'favorite-btn' }
       onClick={ () => saveFavoriteRecipe() }
       src={ srcIconHeart }
     >
@@ -48,4 +48,5 @@ LikeButton.propTypes = {
   id: PropTypes.number.isRequired,
   recipe: PropTypes.objectOf(PropTypes.string).isRequired,
   type: PropTypes.string.isRequired,
+  dataID: PropTypes.string.isRequired,
 };
