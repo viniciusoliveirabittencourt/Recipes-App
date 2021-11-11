@@ -8,23 +8,22 @@ import Loading from '../components/Loading';
 
 export default function Foods() {
   const {
-    fetchCategoriesAndRecipes, mealCategories, meals, loading, selectedCategory,
+    fetchCategoriesAndRecipes, mealCategories,
+    meals, loading, selectedCategory,
   } = useAppContext();
-
-  const EMPTY = 0;
 
   useEffect(() => {
     fetchCategoriesAndRecipes('meals');
   }, [selectedCategory]);
 
   const createCategoryButtons = () => {
-    if (mealCategories.length > EMPTY) {
+    if (mealCategories.length > 0) {
       return (<CategoryButtons buttonsData={ mealCategories } />);
     }
   };
 
   const createRecipeCards = () => {
-    if (meals.length > EMPTY) {
+    if (meals.length > 0) {
       return (<RecipeCards cardsData={ meals } type="Meal" />);
     }
   };

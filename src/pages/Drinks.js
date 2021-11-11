@@ -8,29 +8,29 @@ import Loading from '../components/Loading';
 
 export default function Drinks() {
   const {
-    fetchCategoriesAndRecipes, drinkCategories, drinks, loading, selectedCategory,
+    fetchCategoriesAndRecipes, drinkCategories,
+    drinks, loading, selectedCategory,
   } = useAppContext();
-  const EMPTY = 0;
 
   useEffect(() => {
     fetchCategoriesAndRecipes('drinks');
   }, [selectedCategory]);
 
   const createCategoryButtons = () => {
-    if (drinkCategories.length > EMPTY) {
+    if (drinkCategories.length > 0) {
       return (<CategoryButtons buttonsData={ drinkCategories } />);
     }
   };
 
   const createRecipeCards = () => {
-    if (drinks.length > EMPTY) {
+    if (drinks.length > 0) {
       return (<RecipeCards cardsData={ drinks } type="Drink" />);
     }
   };
 
   const standardReturnElements = (
     <div>
-      <Header />
+      <Header pagename="Comidas" completeSearch />
       { createCategoryButtons() }
       { createRecipeCards() }
       <Footer />
