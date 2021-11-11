@@ -1,0 +1,33 @@
+.carousel {
+  align-items: center;
+  display: flex;
+  overflow-x: scroll;
+  width: 100%;
+}
+
+.carousel .col .card {
+  margin: 0 0.7rem;
+  width: 150px;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.container-buttons-carousel {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.button-carousel {
+  align-items: center;
+  border: 0;
+  border-radius: 50%;
+  display: flex;
+  font-size: 1.5rem;
+  justify-content: center;
+  margin: 0.2rem;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function InProgressFood() {
+function RecipeInProgressFood() {
   return (
     <div>
       <p>Tela de receita em processo de comida</p>
@@ -8,4 +8,4 @@ function InProgressFood() {
   );
 }
 
-export default InProgressFood;
+export default RecipeInProgressFood;

@@ -6,7 +6,7 @@ function ExploreFoodByIngredients() {
   return (
 
     <div>
-      <Header pagename="Explorar Ingredientes" completeSearch={ false } />
+      <Header pagename="Explorar Ingredientes" />
       <p>Tela de explorar comidas por ingrediente</p>
       <Footer />
     </div>

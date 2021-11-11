@@ -1,0 +1,38 @@
+@media screen and ( max-width : 768px ) {
+
+  .card-img-top {
+    height: 40vw;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .card_title {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .icon-heart {
+    max-width: 26px;
+  }
+
+  .card_title button {
+    border: none;
+    margin: 0.25rem;
+  }
+
+  .card_title button:hover {
+    cursor: pointer;
+  }
+
+  .start-recipe-btn {
+    bottom: 0;
+    left: 30%;
+    position: fixed;
+  }
+
+  .card-footer {
+    margin-top: 1rem;
+  }
+
+}
+

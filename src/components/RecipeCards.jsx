@@ -1,26 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Card, Col, Row } from 'react-bootstrap';
+import { Card, Col } from 'react-bootstrap';
 import '../styles/cards.css';
 
 export default function RecipeCards(props) {
-  const { cardsData, type } = props;
+  const { cardsData, type, dataID, MAX_ELEMENTS } = props;
 
   const STARTING_ON_INDEX_0 = 0;
-  const GET_TWELVE_ELEMENTS = 12;
   const pagePath = type === 'Meal' ? 'comidas' : 'bebidas';
 
   return (
-    <Row xs={ 2 } md={ 2 } className="g-2" as="section">
+    <>
       {
         [...cardsData]
-          .splice(STARTING_ON_INDEX_0, GET_TWELVE_ELEMENTS)
+          .splice(STARTING_ON_INDEX_0, MAX_ELEMENTS)
           .map((cardData, index) => (
             <Col key={ cardData[`id${type}`] }>
               <Link to={ `/${pagePath}/${cardData[`id${type}`]}` }>
                 <Card
-                  data-testid={ `${index}-recipe-card` }
+                  data-testid={ `${index}-${dataID}` }
                   className="container-cards"
                 >
                   <Card.Img
@@ -44,11 +43,13 @@ export default function RecipeCards(props) {
             </Col>
           ))
       }
-    </Row>
+    </>
   );
 }
 
 RecipeCards.propTypes = {
-  cardsData: PropTypes.array,
-  recipeType: PropTypes.string,
-}.isRequired;
+  cardsData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  type: PropTypes.string.isRequired,
+  dataID: PropTypes.string.isRequired,
+  MAX_ELEMENTS: PropTypes.number.isRequired,
+};

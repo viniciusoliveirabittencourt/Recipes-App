@@ -23,7 +23,7 @@ function Profile() {
 
   return (
     <div>
-      <Header pagename="Perfil" completeSearch={ false } />
+      <Header pagename="Perfil" />
       <p>Tela de Perfil</p>
       <h4 data-testid="profile-email">{email}</h4>
       <div>

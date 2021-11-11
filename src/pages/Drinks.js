@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Row } from 'react-bootstrap';
 import { useAppContext } from '../context/AppProvider';
 import CategoryButtons from '../components/CategoryButtons';
 import RecipeCards from '../components/RecipeCards';
@@ -31,13 +32,31 @@ export default function Drinks() {
 
   const createRecipeCards = () => {
     if (drinks.length > EMPTY) {
-      return (<RecipeCards cardsData={ drinks } type="Drink" />);
+      return (
+        <Row xs={ 2 } md={ 2 } className="g-2" as="section">
+          <RecipeCards
+            cardsData={ drinks }
+            type="Drink"
+            dataID="recipe-card"
+            MAX_ELEMENTS={ 12 }
+          />
+        </Row>
+      );
     }
   };
 
   const createSearchRecipeCards = () => {
     if (dataSearchDrinks.length > EMPTY) {
-      return (<RecipeCards cardsData={ dataSearchDrinks } type="Drink" />);
+      return (
+        <Row xs={ 2 } md={ 2 } className="g-2" as="section">
+          <RecipeCards
+            cardsData={ dataSearchDrinks }
+            type="Drink"
+            dataID="recipe-card"
+            MAX_ELEMENTS={ 12 }
+          />
+        </Row>
+      );
     }
   };
 
