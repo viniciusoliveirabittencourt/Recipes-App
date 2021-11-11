@@ -7,13 +7,6 @@ import useFetch from '../hooks/useFetch';
 function DetailsFood() {
   const { id } = useParams();
   const { data, loading } = useFetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`, 'meals');
-  const getDoneRecipes = JSON.parse(
-    localStorage.getItem('doneRecipes'),
-  ) || [];
-
-  const getInProgressRecipes = JSON.parse(
-    localStorage.getItem('inProgressRecipes'),
-  ) || {};
 
   return (
     <section>
@@ -21,8 +14,6 @@ function DetailsFood() {
         <CardDetailsFoods
           key={ index }
           recipeMeal={ meal }
-          doneRecipes={ getDoneRecipes }
-          inProgressRecipes={ getInProgressRecipes }
           id={ id }
         />
       ))}
