@@ -15,7 +15,7 @@ export default function CardRecipiesDone({ doneFood: { tags }, doneFood, index }
 
   const clipBoard = () => {
     const urlCop = `http://localhost:3000/${doneFood.type}s/${doneFood.id}`;
-    navigator.clipboard.writeText(urlCop);
+    window.navigator.clipboard.writeText(urlCop);
     showAndDestroyResponse();
   };
 
