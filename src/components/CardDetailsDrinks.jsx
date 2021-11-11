@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
-import CopyButton from './CopyButton';
+import LikeButton from './LikeButton';
 import ShareButton from './ShareButton';
 import Ingredients from './Ingredients';
 import Recommendations from './Recommendations';
@@ -28,8 +28,8 @@ export default function CardDetailsDrinks(props) {
           <Card.Text data-testid="recipe-category">{ strAlcoholic }</Card.Text>
         </div>
         <div>
-          <ShareButton />
-          <CopyButton pathname={ location.pathname } />
+          <LikeButton id={ id } />
+          <ShareButton pathname={ location.pathname } />
         </div>
       </Card.Body>
       <Ingredients recipe={ recipeDrink } />

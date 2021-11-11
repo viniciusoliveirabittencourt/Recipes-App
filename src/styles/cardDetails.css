@@ -11,6 +11,10 @@
     justify-content: space-between;
   }
 
+  .icon-heart {
+    max-width: 26px;
+  }
+
   .card_title button {
     border: none;
     margin: 0.25rem;
