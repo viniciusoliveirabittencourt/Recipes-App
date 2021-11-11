@@ -9,7 +9,7 @@ export default function CardFavoriteRecipe({ recipe, index, type }) {
   const isMeal = type === 'comida';
   const pathname = isMeal ? `/comidas/${recipe.id}` : `/bebidas/${recipe.id}`;
   return (
-    <Card key={ recipe.id }>
+    <Card key={ recipe.id } className="card-favorite">
       <Link to={ pathname }>
         <Card.Img
           variant="top"
@@ -20,12 +20,13 @@ export default function CardFavoriteRecipe({ recipe, index, type }) {
       <Card.Body className="card_title">
         <Link to={ pathname }>
           <div>
-            <Card.Title
+            <Card.Subtitle
               data-testid={ `${index}-horizontal-name` }
+              className="card-text"
             >
               { recipe.name }
 
-            </Card.Title>
+            </Card.Subtitle>
             <Card.Text
               data-testid={ `${index}-horizontal-top-text` }
             >
@@ -38,11 +39,12 @@ export default function CardFavoriteRecipe({ recipe, index, type }) {
             id={ recipe.id }
             type="bebida"
             recipe={ recipe }
-            dataID={ `${index}-horizontal-share-btn` }
+            dataID={ `${index}-horizontal-favorite-btn` }
+
           />
           <ShareButton
+            dataID={ `${index}-horizontal-share-btn` }
             pathname={ pathname }
-            dataID={ `${index}-horizontal-favorite-btn` }
             id={ recipe.id }
           />
         </div>
