@@ -1,11 +1,24 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
+import Loading from '../components/Loading';
+import CardDetailsDrinks from '../components/CardDetailsDrinks';
+import useFetch from '../hooks/useFetch';
 
-function DetailDrink() {
+function DetailsDrink() {
+  const { id } = useParams();
+  const { data, loading } = useFetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`, 'drinks');
+
   return (
-    <div>
-      <p> Tela de detalhes de uma receita de bebida</p>
-    </div>
+    <section>
+      { loading ? <Loading /> : data.map((drink, index) => (
+        <CardDetailsDrinks
+          key={ index }
+          recipeDrink={ drink }
+          id={ id }
+        />
+      ))}
+    </section>
   );
 }
 
-export default DetailDrink;
+export default DetailsDrink;
