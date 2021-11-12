@@ -45,7 +45,7 @@ export default function LikeButton({ id, recipe, type }) {
 }
 
 LikeButton.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   recipe: PropTypes.objectOf(PropTypes.string).isRequired,
   type: PropTypes.string.isRequired,
 };

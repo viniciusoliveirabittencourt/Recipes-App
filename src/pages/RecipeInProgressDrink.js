@@ -1,30 +1,35 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import InProgressBody from '../components/InProgressBody';
 import InProgressFooter from '../components/InProgressFooter';
 import InProgressHeader from '../components/InProgressHeader';
 import Loading from '../components/Loading';
 
+const createNewArray = (object, string) => {
+  const keys = Object.keys(object).filter((key) => key.includes(string));
+  const array = [];
+  keys.forEach((key) => {
+    if (object[key] && object[key] !== '') {
+      array.push(object[key]);
+    }
+  });
+  return array;
+};
+
 export default function RecipeInProgressDrink() {
-  const location = useLocation();
-  const id = location.pathname.replace('/bebidas/', '').replace('/in-progress', '');
-
-  let initialCheckboxValue = [];
-  const localStorageValue = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  if (localStorageValue && localStorageValue.cocktails[id]) {
-    initialCheckboxValue = localStorageValue.cocktails[id];
-  }
-
+  const id = useLocation().pathname.replace('/bebidas/', '').replace('/in-progress', '');
+  const storedValue = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const initialCheckboxValue = storedValue
+    && storedValue.cocktails[id] ? storedValue.cocktails[id] : [];
   const [checkboxState, setCheckboxState] = useState(initialCheckboxValue);
+
   const [disableDoneButton, setDisableDoneButton] = useState(true);
+
   const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data, loading } = useFetch(url, 'drinks');
   const recipeObject = data.length > 0 ? data[0] : data;
-
-  const history = useHistory();
-  const changePath = () => { history.push('/receitas-feitas'); };
 
   const handleCheckbox = (ingredient) => {
     const newCheckboxValue = [...checkboxState];
@@ -41,21 +46,11 @@ export default function RecipeInProgressDrink() {
     localStorage.setItem('inProgressRecipes', JSON.stringify(newProgress));
   };
 
-  const createNewArray = (object, string) => {
-    const keys = Object.keys(object).filter((key) => key.includes(string));
-    const array = [];
-    keys.forEach((key) => {
-      if (object[key] && object[key] !== '') {
-        array.push(object[key]);
-      }
-    });
-    return array;
-  };
-
   const ingredientsArray = createNewArray(recipeObject, 'Ingredient');
   const measuresArray = createNewArray(recipeObject, 'Measure');
   const ingredientsAndMeasures = ingredientsArray
     .map((ingredient, index) => `${ingredient} - ${measuresArray[index]}`);
+
   const shouldButtonBeEnabled = checkboxState.length === ingredientsAndMeasures.length;
   if (shouldButtonBeEnabled && disableDoneButton) {
     setDisableDoneButton(false);
@@ -75,7 +70,6 @@ export default function RecipeInProgressDrink() {
         checkboxState={ checkboxState }
       />
       <InProgressFooter
-        changePath={ changePath }
         doneButtonIsDisabled={ disableDoneButton }
       />
     </div>

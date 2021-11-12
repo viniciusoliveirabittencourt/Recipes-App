@@ -33,7 +33,9 @@ export default function InProgressHeader(props) {
             type={ likeButtonType }
             recipe={ recipeObject }
           />
-          <ShareButton pathname={ location.pathname.replace('/in-progress', '') } />
+          <ShareButton
+            pathname={ location.pathname.replace('/in-progress', '') }
+          />
         </div>
         <div>
           <p data-testid="recipe-category">{ recipeObject.strCategory }</p>

@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 
 export default function InProgressFooter(props) {
-  const { doneButtonIsDisabled, changePath } = props;
+  const { doneButtonIsDisabled } = props;
+
+  const history = useHistory();
+  const changePath = () => { history.push('/receitas-feitas'); };
 
   return (
     <section style={ { width: '95%' } }>
