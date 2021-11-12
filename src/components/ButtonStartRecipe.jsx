@@ -42,14 +42,16 @@ export default function ButtonStartRecipe({ id, type }) {
             </Button>
           </Link>
         ) : (
-          <Button
-            variant="success"
-            data-testid="start-recipe-btn"
-            className="start-recipe-btn"
-            hidden={ showButtonStartRecipe }
-          >
-            Continuar Receita
-          </Button>
+          <Link to={ `/${type}/${id}/in-progress` }>
+            <Button
+              variant="success"
+              data-testid="start-recipe-btn"
+              className="start-recipe-btn"
+              hidden={ showButtonStartRecipe }
+            >
+              Continuar Receita
+            </Button>
+          </Link>
         )
       }
     </Card.Footer>
@@ -57,6 +59,6 @@ export default function ButtonStartRecipe({ id, type }) {
 }
 
 ButtonStartRecipe.propTypes = {
-  id: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-};
+  id: PropTypes.string,
+  type: PropTypes.string,
+}.isRequired;

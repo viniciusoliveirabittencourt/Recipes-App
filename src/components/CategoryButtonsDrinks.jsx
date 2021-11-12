@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { useAppContext } from '../context/AppProvider';
 import '../styles/categorybuttons.css';
 
-export default function CategoryButtons(props) {
+export default function CategoryButtonsDrinks(props) {
   const {
-    setSelectedCategory,
-    selectedCategory,
+    setSelectedCategoryDrinks,
+    selectedCategoryDrinks,
     isSearch,
     setIsSearch,
   } = useAppContext();
@@ -15,17 +15,17 @@ export default function CategoryButtons(props) {
   const GET_FIVE_ELEMENTS = 5;
 
   const manipulateCategoryState = (buttonCategory) => {
-    if (selectedCategory === buttonCategory) {
+    if (selectedCategoryDrinks === buttonCategory) {
       setIsSearch(isSearch ? !isSearch : isSearch);
-      setSelectedCategory('search.php?s=');
+      setSelectedCategoryDrinks('search.php?s=');
     } else {
       setIsSearch(isSearch ? !isSearch : isSearch);
-      setSelectedCategory(buttonCategory);
+      setSelectedCategoryDrinks(buttonCategory);
     }
   };
 
   const manipulateCategoryAll = () => {
-    setSelectedCategory('search.php?s=');
+    setSelectedCategoryDrinks('search.php?s=');
     setIsSearch(isSearch ? !isSearch : isSearch);
   };
 
@@ -63,6 +63,6 @@ export default function CategoryButtons(props) {
   );
 }
 
-CategoryButtons.propTypes = {
+CategoryButtonsDrinks.propTypes = {
   buttonsData: PropTypes.array,
 }.isRequired;
