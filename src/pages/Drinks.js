@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Row } from 'react-bootstrap';
 import { useAppContext } from '../context/AppProvider';
-import CategoryButtons from '../components/CategoryButtons';
 import RecipeCards from '../components/RecipeCards';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Loading from '../components/Loading';
+import CategoryButtonsDrinks from '../components/CategoryButtonsDrinks';
 
 export default function Drinks() {
   const {
@@ -13,7 +13,7 @@ export default function Drinks() {
     drinkCategories,
     drinks,
     loading,
-    selectedCategory,
+    selectedCategoryDrinks,
     dataSearchDrinks,
     isSearch,
   } = useAppContext();
@@ -21,11 +21,11 @@ export default function Drinks() {
   useEffect(() => {
     fetchCategoriesAndRecipes('drinks');
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCategory]);
+  }, [selectedCategoryDrinks]);
 
   const createCategoryButtons = () => {
     if (drinkCategories.length > 0) {
-      return (<CategoryButtons buttonsData={ drinkCategories } />);
+      return (<CategoryButtonsDrinks buttonsData={ drinkCategories } />);
     }
   };
 

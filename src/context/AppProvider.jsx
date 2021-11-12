@@ -10,7 +10,8 @@ export function AppProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [mealCategories, setMealCategories] = useState([]);
   const [drinkCategories, setDrinkCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('search.php?s=');
+  const [selectedCategoryMeals, setSelectedCategoryMeals] = useState('search.php?s=');
+  const [selectedCategoryDrinks, setSelectedCategoryDrinks] = useState('search.php?s=');
   const [loading, setLoading] = useState(false);
 
   const requestFromApi = async (url) => {
@@ -23,12 +24,13 @@ export function AppProvider({ children }) {
     setLoading(true);
 
     const typeIsMeals = type === 'meals';
+    const category = typeIsMeals ? selectedCategoryMeals : selectedCategoryDrinks;
     const mealsPath = 'https://www.themealdb.com/api/json/v1/1/';
     const drinksPath = 'https://www.thecocktaildb.com/api/json/v1/1/';
     const urlType = typeIsMeals ? mealsPath : drinksPath;
 
     const categories = await requestFromApi(`${urlType}list.php?c=list`);
-    const recipes = await requestFromApi(`${urlType}${selectedCategory}`);
+    const recipes = await requestFromApi(`${urlType}${category}`);
 
     if (typeIsMeals) {
       setMealCategories(categories[type]);
@@ -54,8 +56,10 @@ export function AppProvider({ children }) {
     meals,
     drinkCategories,
     drinks,
-    selectedCategory,
-    setSelectedCategory,
+    selectedCategoryMeals,
+    setSelectedCategoryMeals,
+    selectedCategoryDrinks,
+    setSelectedCategoryDrinks,
   };
 
   return (

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Row } from 'react-bootstrap';
 import { useAppContext } from '../context/AppProvider';
-import CategoryButtons from '../components/CategoryButtons';
 import RecipeCards from '../components/RecipeCards';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Loading from '../components/Loading';
+import CategoryButtonsMeals from '../components/CategoryButtonsMeals';
 
 export default function Foods() {
   const {
@@ -13,7 +13,7 @@ export default function Foods() {
     mealCategories,
     meals,
     loading,
-    selectedCategory,
+    selectedCategoryMeals,
     dataSearchMeals,
     isSearch,
   } = useAppContext();
@@ -21,11 +21,11 @@ export default function Foods() {
   useEffect(() => {
     fetchCategoriesAndRecipes('meals');
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCategory]);
+  }, [selectedCategoryMeals]);
 
   const createCategoryButtons = () => {
     if (mealCategories.length > 0) {
-      return (<CategoryButtons buttonsData={ mealCategories } />);
+      return (<CategoryButtonsMeals buttonsData={ mealCategories } />);
     }
   };
 
