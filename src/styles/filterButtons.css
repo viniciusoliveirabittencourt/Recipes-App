@@ -1,16 +1,16 @@
-.container-buttons {
+.filter-buttons {
   display: grid;
-  gap: 0.25rem;
+  grid-gap: 1rem;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr 1fr;
-  padding: 0.5rem 0;
+  grid-template-rows: 1fr;
+  padding: 0.5rem;
 }
 
-.category-buttons {
+.filter-buttons button {
   background: var(--color-buttons);
   border: none;
   border-radius: 1.5rem;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   font-weight: 600;
   line-height: 1.5rem;
   padding: 0 0.5rem;

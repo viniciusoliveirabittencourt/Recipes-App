@@ -1,20 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button, Card } from 'react-bootstrap';
 
 export default function ButtonStartRecipe({ id, type }) {
-  const getDoneRecipes = JSON.parse(
-    localStorage.getItem('doneRecipes'),
-  ) || [];
-  const getInProgressRecipes = JSON.parse(
-    localStorage.getItem('inProgressRecipes'),
-  ) || {};
-
-  const showButtonStartRecipe = getDoneRecipes.some((doneRecipe) => doneRecipe.id === id);
+  const [doneRecipes, setDoneRecipes] = useState([]);
+  const [inProgressRecipes, setInProgressRecipes] = useState({});
+  const showButtonStartRecipe = doneRecipes.some((doneRecipe) => doneRecipe.id === id);
   const typeObject = type === 'comidas' ? 'meals' : 'cocktails';
-  const showButtonContinueRecipe = Object.entries(getInProgressRecipes).length > 0
-    && getInProgressRecipes[typeObject][id];
+  const showButtonContinueRecipe = Object.entries(inProgressRecipes).length > 0
+    && inProgressRecipes[typeObject][id];
+
+  useEffect(() => {
+    function getDoneRecipes() {
+      const doneRecipesInStorage = JSON.parse(localStorage
+        .getItem('doneRecipes')) || [];
+      return setDoneRecipes(doneRecipesInStorage);
+    }
+    getDoneRecipes();
+
+    function getInProgressRecipes() {
+      const inProgressRecipesInStorage = JSON.parse(localStorage
+        .getItem('inProgressRecipes')) || {};
+      return setInProgressRecipes(inProgressRecipesInStorage);
+    }
+    getInProgressRecipes();
+  }, []);
 
   return (
     <Card.Footer>
