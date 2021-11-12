@@ -1,77 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { useHistory, useLocation } from 'react-router-dom';
+import useFetch from '../hooks/useFetch';
 import InProgressBody from '../components/InProgressBody';
 import InProgressFooter from '../components/InProgressFooter';
 import InProgressHeader from '../components/InProgressHeader';
-
-const recipeMock = {
-  idDrink: '52882',
-  strDrink: 'Three Fish Pie',
-  strMealAlternate: 'null',
-  strCategory: 'Seafood',
-  strArea: 'British',
-  strInstructions: 'Preheat the oven to 200C\/400F\/Gas 6 (180C fan).\r\nPut the potatoes into a saucepan of cold salted water. Bring up to the boil and simmer until completely tender. Drain well and then mash with the butter and milk. Add pepper and taste to check the seasoning. Add salt and more pepper if necessary.\r\nFor the fish filling, melt the butter in a saucepan, add the leeks and stir over the heat. Cover with a lid and simmer gently for 10 minutes, or until soft. Measure the flour into a small bowl. Add the wine and whisk together until smooth.\r\nAdd the milk to the leeks, bring to the boil and then add the wine mixture. Stir briskly until thickened. Season and add the parsley and fish. Stir over the heat for two minutes, then spoon into an ovenproof casserole. Scatter over the eggs. Allow to cool until firm.\r\nSpoon the mashed potatoes over the fish mixture and mark with a fork. Sprinkle with cheese.\r\nBake for 30-40 minutes, or until lightly golden-brown on top and bubbling around the edges.',
-  strDrinkThumb: 'https:\/\/www.themealdb.com\/images\/media\/meals\/spswqs1511558697.jpg',
-  strTags: 'Fish,Seafood,Dairy,Pie',
-  strYoutube: 'https:\/\/www.youtube.com\/watch?v=Ds1Jb8H5Sg8',
-  strIngredient1: 'Potatoes',
-  strIngredient2: 'Butter',
-  strIngredient3: 'Milk',
-  strIngredient4: 'Gruy\u00e8re',
-  strIngredient5: 'Butter',
-  strIngredient6: 'Leek',
-  strIngredient7: 'Plain Flour',
-  strIngredient8: 'White Wine',
-  strIngredient9: 'Milk',
-  strIngredient10: 'Parsley',
-  strIngredient11: 'Salmon',
-  strIngredient12: 'Haddock',
-  strIngredient13: 'Smoked Haddock',
-  strIngredient14: 'Eggs',
-  strIngredient15: '',
-  strIngredient16: '',
-  strIngredient17: '',
-  strIngredient18: '',
-  strIngredient19: '',
-  strIngredient20: '',
-  strMeasure1: '1kg',
-  strMeasure2: 'Knob',
-  strMeasure3: 'Dash',
-  strMeasure4: '50g',
-  strMeasure5: '75g',
-  strMeasure6: '2 sliced',
-  strMeasure7: '75g',
-  strMeasure8: '150ml',
-  strMeasure9: '568ml',
-  strMeasure10: '2 tbs chopped',
-  strMeasure11: '250g',
-  strMeasure12: '250g',
-  strMeasure13: '250g',
-  strMeasure14: '6',
-  strMeasure15: '',
-  strMeasure16: '',
-  strMeasure17: '',
-  strMeasure18: '',
-  strMeasure19: '',
-  strMeasure20: '',
-  strSource: 'https:\/\/www.bbc.co.uk\/food\/recipes\/three_fish_pie_58875',
-  dateModified: null,
-};
+import Loading from '../components/Loading';
 
 export default function RecipeInProgressDrink() {
-  const [checkboxState, setCheckboxState] = useState([]);
+  const location = useLocation();
+  const id = location.pathname.replace('/bebidas/', '').replace('/in-progress', '');
+
+  let initialCheckboxValue = [];
+  const localStorageValue = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (localStorageValue && localStorageValue.cocktails[id]) {
+    initialCheckboxValue = localStorageValue.cocktails[id];
+  }
+
+  const [checkboxState, setCheckboxState] = useState(initialCheckboxValue);
   const [disableDoneButton, setDisableDoneButton] = useState(true);
+  const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const { data, loading } = useFetch(url, 'drinks');
+  const recipeObject = data.length > 0 ? data[0] : data;
 
   const history = useHistory();
   const changePath = () => { history.push('/receitas-feitas'); };
-
-  useEffect(() => {
-    const savedProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (savedProgress && savedProgress.cocktails[recipeMock.idDrink]) {
-      const newCheckboxValue = savedProgress.cocktails[recipeMock.idDrink];
-      setCheckboxState(newCheckboxValue);
-    }
-  }, []);
 
   const handleCheckbox = (ingredient) => {
     const newCheckboxValue = [...checkboxState];
@@ -84,7 +37,7 @@ export default function RecipeInProgressDrink() {
     const savedProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const newProgress = savedProgress
       ? { ...savedProgress } : { cocktails: {}, meals: {} };
-    newProgress.cocktails[recipeMock.idDrink] = newCheckboxValue;
+    newProgress.cocktails[id] = newCheckboxValue;
     localStorage.setItem('inProgressRecipes', JSON.stringify(newProgress));
   };
 
@@ -92,15 +45,15 @@ export default function RecipeInProgressDrink() {
     const keys = Object.keys(object).filter((key) => key.includes(string));
     const array = [];
     keys.forEach((key) => {
-      if (object[key] !== '') {
+      if (object[key] && object[key] !== '') {
         array.push(object[key]);
       }
     });
     return array;
   };
 
-  const ingredientsArray = createNewArray(recipeMock, 'Ingredient');
-  const measuresArray = createNewArray(recipeMock, 'Measure');
+  const ingredientsArray = createNewArray(recipeObject, 'Ingredient');
+  const measuresArray = createNewArray(recipeObject, 'Measure');
   const ingredientsAndMeasures = ingredientsArray
     .map((ingredient, index) => `${ingredient} - ${measuresArray[index]}`);
   const shouldButtonBeEnabled = checkboxState.length === ingredientsAndMeasures.length;
@@ -110,11 +63,13 @@ export default function RecipeInProgressDrink() {
     setDisableDoneButton(true);
   }
 
+  if (loading) { return <Loading />; }
+
   return (
     <div style={ { display: 'flex', flexDirection: 'column' } }>
-      <InProgressHeader recipeObject={ recipeMock } type="Drink" />
+      <InProgressHeader recipeObject={ recipeObject } type="Drink" />
       <InProgressBody
-        recipeObject={ recipeMock }
+        recipeObject={ recipeObject }
         ingredientsAndMeasures={ ingredientsAndMeasures }
         handleCheckbox={ handleCheckbox }
         checkboxState={ checkboxState }
@@ -126,3 +81,7 @@ export default function RecipeInProgressDrink() {
     </div>
   );
 }
+
+RecipeInProgressDrink.propTypes = {
+  recipeObject: PropTypes.object,
+}.isRequired;

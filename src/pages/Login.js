@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import RecipeInProgressDrink from './RecipeInProgressDrink';
 
 function Login() {
   const [loginState, setLoginState] = useState({
@@ -71,7 +70,6 @@ function Login() {
           Entrar
         </Button>
       </Link>
-      <RecipeInProgressDrink />
     </form>
   );
 }

@@ -1,13 +1,21 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import LikeButton from './LikeButton';
+import ShareButton from './ShareButton';
 
 export default function InProgressHeader(props) {
   const { recipeObject, type } = props;
 
-  const shareButtonIcon = <img src={ shareIcon } alt="share" />;
-  const favoriteButtonIcon = <img src={ whiteHeartIcon } alt="whiteHeart" />;
+  const location = useLocation();
+
+  let likeButtonType;
+
+  if (type === 'Meal') {
+    likeButtonType = 'comida';
+  } else {
+    likeButtonType = 'bebida';
+  }
 
   return (
     <section>
@@ -19,8 +27,14 @@ export default function InProgressHeader(props) {
       />
       <div>
         <h1 data-testid="recipe-title">{ recipeObject[`str${type}`] }</h1>
-        <button data-testid="share-btn" type="button">{ shareButtonIcon }</button>
-        <button data-testid="favorite-btn" type="button">{ favoriteButtonIcon }</button>
+        <div>
+          <LikeButton
+            id={ recipeObject[`id${type}`] }
+            type={ likeButtonType }
+            recipe={ recipeObject }
+          />
+          <ShareButton pathname={ location.pathname.replace('/in-progress', '') } />
+        </div>
         <div>
           <p data-testid="recipe-category">{ recipeObject.strCategory }</p>
         </div>

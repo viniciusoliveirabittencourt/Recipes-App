@@ -19,6 +19,8 @@ export default function CardDetailsDrinks(props) {
     strAlcoholic,
   } = recipeDrink;
 
+  console.log(recipeDrink);
+
   return (
     <Card>
       <Card.Img variant="top" src={ strDrinkThumb } data-testid="recipe-photo" />

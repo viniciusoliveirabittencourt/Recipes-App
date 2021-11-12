@@ -30,7 +30,7 @@ export default function Foods() {
   };
 
   const createRecipeCards = () => {
-    if (meals.length > EMPTY) {
+    if (meals.length > 0) {
       return (
         <Row xs={ 2 } md={ 2 } className="g-2" as="section">
           <RecipeCards
@@ -45,7 +45,7 @@ export default function Foods() {
   };
 
   const createSearchRecipeCards = () => {
-    if (dataSearchMeals.length > EMPTY) {
+    if (dataSearchMeals.length > 0) {
       return (
         <Row xs={ 2 } md={ 2 } className="g-2" as="section">
           <RecipeCards

@@ -14,6 +14,7 @@ export default function InProgressBody(props) {
           <label
             htmlFor={ ingredient }
             key={ ingredient }
+            data-testid={ `${index}-ingredient-step` }
             style={ checkboxState.includes(ingredient)
               ? { textDecoration: 'line-through' } : {} }
           >
@@ -21,7 +22,6 @@ export default function InProgressBody(props) {
               id={ ingredient }
               type="checkbox"
               checked={ checkboxState.includes(ingredient) }
-              data-testid={ `${index}-ingredient-step` }
               onChange={ ({ target: { id } }) => { handleCheckbox(id); } }
             />
             { ingredient }
