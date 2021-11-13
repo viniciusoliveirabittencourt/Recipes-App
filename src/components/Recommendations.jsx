@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
-// import Carousel from './Carousel';
 import Carousel from 'react-multi-carousel';
 import Loading from './Loading';
 // import RecipeCards from './RecipeCards';
@@ -35,7 +34,7 @@ export default function Recommendations({ type }) {
   const mealsURL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const fetchURL = type === 'Drink' ? drinksURL : mealsURL;
   const recipe = type === 'Drink' ? 'drinks' : 'meals';
-  // const pagePath = type === 'Meal' ? 'comidas' : 'bebidas';
+  const pagePath = type === 'Meal' ? 'comidas' : 'bebidas';
   const { data: dataRecommendations, loading } = useFetch(fetchURL, recipe);
   return (
     <>
@@ -48,28 +47,32 @@ export default function Recommendations({ type }) {
         { loading
           ? <Loading />
           : dataRecommendations.slice(0, MAX_RECIPES).map((cardData, index) => (
-            <Card
-              data-testid={ `${index}-recomendation-card` }
-              // className="container-cards"
+
+            <Link
+              to={ `/${pagePath}/${cardData[`id${type}`]}` }
               key={ cardData[`id${type}`] }
             >
-              <Card.Img
-                src={ cardData[`str${type}Thumb`] }
-                alt={ cardData[`str${type}`] }
-                data-testid={ `${index}-card-img` }
-                className="card-img"
-              />
-              <Card.Body>
-                <Card.Text>
-                  { cardData.strCategory }
-                </Card.Text>
-                <Card.Subtitle
-                  data-testid={ `${index}-card-name` }
-                >
-                  { cardData[`str${type}`] }
-                </Card.Subtitle>
-              </Card.Body>
-            </Card>
+              <Card
+                data-testid={ `${index}-recomendation-card` }
+              >
+                <Card.Img
+                  src={ cardData[`str${type}Thumb`] }
+                  alt={ cardData[`str${type}`] }
+                  data-testid={ `${index}-card-img` }
+                  className="card-img"
+                />
+                <Card.Body>
+                  <Card.Text>
+                    { cardData.strCategory }
+                  </Card.Text>
+                  <Card.Subtitle
+                    data-testid={ `${index}-card-name` }
+                  >
+                    { cardData[`str${type}`] }
+                  </Card.Subtitle>
+                </Card.Body>
+              </Card>
+            </Link>
           ))}
       </Carousel>
     </>
