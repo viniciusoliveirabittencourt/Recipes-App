@@ -174,7 +174,7 @@ describe.only('37 - Implemente os cards de recomendação, onde serão 6 cards, 
         win.fetch = fetchMock;
       },
     });
-
+    cy.get('#elemento img:visible').should('have.lenght',3)
     cy.get('[data-testid*="recomendation-card"]').should('have.length', 6);
 
     cy.get('[data-testid="0-recomendation-card"]').should('exist').and('visible');

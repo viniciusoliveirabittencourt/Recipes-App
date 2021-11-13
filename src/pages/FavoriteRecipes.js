@@ -5,7 +5,7 @@ function FavoriteRecipes() {
   return (
     <div>
       <Header pagename="Receitas Favoritas" completeSearch={ false } />
-      <p>Tela de receitas favoritas</p>
+      <p>Tela de receitas favoritas.</p>
     </div>
   );
 }
