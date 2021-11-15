@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 
-export default function useFetch(url, recipe) {
+export default function useFetch(url, type) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [erro, setError] = useState(null);
@@ -11,7 +11,7 @@ export default function useFetch(url, recipe) {
       try {
         const response = await fetch(url);
         const json = await response.json();
-        setData(json[recipe]);
+        setData(json[type]);
         setLoading(false);
       } catch (error) {
         setError(error);
