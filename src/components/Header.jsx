@@ -1,41 +1,38 @@
 import React, { useState } from 'react';
 import Proptypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import '../styles/header.css';
 
 export default function Header({ pagename, completeSearch }) {
+  const history = useHistory();
   const [isShowSearchBar, setIsShowSearchBar] = useState(false);
 
   function buttonSearch() {
     return (
-      <button
-        type="button"
+      <input
+        type="image"
         onClick={ () => setIsShowSearchBar(!isShowSearchBar) }
         src={ searchIcon }
         data-testid="search-top-btn"
         aria-label="search-input"
-      >
-        <img
-          src={ searchIcon }
-          alt="search icon"
-          id="search-icon"
-        />
-      </button>
+        alt="search icon"
+        id="search-icon"
+      />
     );
   }
   return (
     <>
       <header className="header">
-        <Link to="/perfil">
-          <img
-            src={ profileIcon }
-            alt="profile icon"
-            data-testid="profile-top-btn"
-          />
-        </Link>
+        <input
+          type="image"
+          src={ profileIcon }
+          alt="profile icon"
+          data-testid="profile-top-btn"
+          onClick={ () => history.push('/perfil') }
+        />
         <h1
           data-testid="page-title"
         >

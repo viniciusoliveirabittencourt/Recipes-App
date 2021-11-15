@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Row } from 'react-bootstrap';
 import { useAppContext } from '../context/AppProvider';
-import CategoryButtons from '../components/CategoryButtons';
 import RecipeCards from '../components/RecipeCards';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Loading from '../components/Loading';
+import CategoryButtonsMeals from '../components/CategoryButtonsMeals';
 
 export default function Foods() {
   const {
@@ -13,26 +13,24 @@ export default function Foods() {
     mealCategories,
     meals,
     loading,
-    selectedCategory,
+    selectedCategoryMeals,
     dataSearchMeals,
     isSearch,
   } = useAppContext();
 
-  const EMPTY = 0;
-
   useEffect(() => {
     fetchCategoriesAndRecipes('meals');
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCategory]);
+  }, [selectedCategoryMeals]);
 
   const createCategoryButtons = () => {
-    if (mealCategories.length > EMPTY) {
-      return (<CategoryButtons buttonsData={ mealCategories } />);
+    if (mealCategories.length > 0) {
+      return (<CategoryButtonsMeals buttonsData={ mealCategories } />);
     }
   };
 
   const createRecipeCards = () => {
-    if (meals.length > EMPTY) {
+    if (meals.length > 0) {
       return (
         <Row xs={ 2 } md={ 2 } className="g-2" as="section">
           <RecipeCards
@@ -47,7 +45,7 @@ export default function Foods() {
   };
 
   const createSearchRecipeCards = () => {
-    if (dataSearchMeals.length > EMPTY) {
+    if (dataSearchMeals.length > 0) {
       return (
         <Row xs={ 2 } md={ 2 } className="g-2" as="section">
           <RecipeCards
