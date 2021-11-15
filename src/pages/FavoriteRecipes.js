@@ -45,9 +45,6 @@ function FavoriteRecipes() {
   return (
     <div>
       <Header pagename="Receitas Favoritas" completeSearch={ false } />
-<<<<<<< HEAD
-      <p>Tela de receitas favoritas.</p>
-=======
       <FilterButtons
         favoriteRecipes={ favoriteRecipes }
         onSetFilterFavorites={ setDataFilterFavorite }
@@ -57,7 +54,6 @@ function FavoriteRecipes() {
           Nenhum receita favorita encontrada!
         </Card.Title>)
         : dataFilterFavorite.map((recipe, index) => typeRecipe(recipe, index))}
->>>>>>> 92152fa6257a1c571f0fb0be04707e5cf513fcdb
     </div>
   );
 }
