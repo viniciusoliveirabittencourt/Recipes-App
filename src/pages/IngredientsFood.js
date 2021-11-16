@@ -33,7 +33,7 @@ function ExploreFoodByIngredients() {
   return (
 
     <div>
-      <Header page="Explorar Comidas por Ingredientes" />
+      <Header pagename="Explorar Ingredientes" />
       <p>Tela de explorar comidas por ingrediente</p>
       { mealsIngredients.map((ingredient, index) => (
         <button

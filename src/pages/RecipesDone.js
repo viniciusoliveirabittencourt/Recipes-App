@@ -3,11 +3,11 @@ import Header from '../components/Header';
 import CardRecipiesDone from '../components/CardRecipiesDone';
 
 function RecipesDone() {
-  const arrayWithFoodDone = localStorage.getItem('doneRecipes');
-  const arrayJson = JSON.parse(arrayWithFoodDone);
-
-  const [doneRecipes] = useState(arrayJson);
-  const [filterCategory, setFilterCategory] = useState(arrayJson);
+  const [doneRecipes] = useState(() => {
+    const arrayWithFoodDone = localStorage.getItem('doneRecipes');
+    return arrayWithFoodDone ? JSON.parse(arrayWithFoodDone) : [];
+  });
+  const [filterCategory, setFilterCategory] = useState(doneRecipes);
 
   useEffect(() => {}, [filterCategory]);
 

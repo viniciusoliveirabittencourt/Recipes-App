@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
 
@@ -15,7 +15,10 @@ export function AppProvider({ children }) {
   const [selectedCategoryMeals, setSelectedCategoryMeals] = useState('search.php?s=');
   const [selectedCategoryDrinks, setSelectedCategoryDrinks] = useState('search.php?s=');
   const [loading, setLoading] = useState(false);
-  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const [favoriteRecipes, setFavoriteRecipes] = useState(() => {
+    const localStorageRecipes = localStorage.getItem('favoriteRecipes');
+    return localStorageRecipes ? JSON.parse(localStorageRecipes) : [];
+  });
 
   const requestFromApi = async (url) => {
     const fetchData = await fetch(url);
@@ -45,12 +48,6 @@ export function AppProvider({ children }) {
 
     setLoading(false);
   };
-
-  useEffect(() => {
-    const favoriteRecipesInStorage = JSON.parse(localStorage
-      .getItem('favoriteRecipes')) || [];
-    setFavoriteRecipes(favoriteRecipesInStorage);
-  }, []);
 
   const context = {
     dataSearchMeals,
