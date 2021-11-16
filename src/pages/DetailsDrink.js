@@ -10,7 +10,7 @@ function DetailsDrink() {
 
   return (
     <section>
-      { loading ? <Loading /> : data.map((drink, index) => (
+      { loading ? <Loading /> : data && data.map((drink, index) => (
         <CardDetailsDrinks
           key={ index }
           recipeDrink={ drink }
