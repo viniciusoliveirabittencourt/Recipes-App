@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
 
@@ -12,8 +12,10 @@ export function AppProvider({ children }) {
   const [drinkCategories, setDrinkCategories] = useState([]);
   const [ingredientsFetch, setIngredientsFetch] = useState([]);
   const [ingredientsPage, setIngredientsPage] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('search.php?s=');
+  const [selectedCategoryMeals, setSelectedCategoryMeals] = useState('search.php?s=');
+  const [selectedCategoryDrinks, setSelectedCategoryDrinks] = useState('search.php?s=');
   const [loading, setLoading] = useState(false);
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
   const requestFromApi = async (url) => {
     const fetchData = await fetch(url);
@@ -25,12 +27,13 @@ export function AppProvider({ children }) {
     setLoading(true);
 
     const typeIsMeals = type === 'meals';
+    const category = typeIsMeals ? selectedCategoryMeals : selectedCategoryDrinks;
     const mealsPath = 'https://www.themealdb.com/api/json/v1/1/';
     const drinksPath = 'https://www.thecocktaildb.com/api/json/v1/1/';
     const urlType = typeIsMeals ? mealsPath : drinksPath;
 
     const categories = await requestFromApi(`${urlType}list.php?c=list`);
-    const recipes = await requestFromApi(`${urlType}${selectedCategory}`);
+    const recipes = await requestFromApi(`${urlType}${category}`);
 
     if (typeIsMeals) {
       setMealCategories(categories[type]);
@@ -42,6 +45,12 @@ export function AppProvider({ children }) {
 
     setLoading(false);
   };
+
+  useEffect(() => {
+    const favoriteRecipesInStorage = JSON.parse(localStorage
+      .getItem('favoriteRecipes')) || [];
+    setFavoriteRecipes(favoriteRecipesInStorage);
+  }, []);
 
   const context = {
     dataSearchMeals,
@@ -56,12 +65,16 @@ export function AppProvider({ children }) {
     meals,
     drinkCategories,
     drinks,
-    selectedCategory,
-    setSelectedCategory,
     ingredientsPage,
     setIngredientsPage,
     ingredientsFetch,
     setIngredientsFetch,
+    selectedCategoryMeals,
+    setSelectedCategoryMeals,
+    selectedCategoryDrinks,
+    setSelectedCategoryDrinks,
+    favoriteRecipes,
+    setFavoriteRecipes,
   };
 
   return (

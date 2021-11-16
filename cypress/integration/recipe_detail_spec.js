@@ -167,14 +167,14 @@ describe('36 - Implemente as recomendações, para receitas de comida, a recomen
   });
 });
 
-describe.only('37 - Implemente os cards de recomendação, onde serão 6 cards, mas mostrando apenas 2 e o scroll é horizontal, similar a um `carousel`', () => {
+describe('37 - Implemente os cards de recomendação, onde serão 6 cards, mas mostrando apenas 2 e o scroll é horizontal, similar a um `carousel`', () => {
   it('Verifica se existem todas as recomendações na tela de detalhes de uma comida', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
       },
     });
-
+    cy.get('#elemento img:visible').should('have.lenght',3)
     cy.get('[data-testid*="recomendation-card"]').should('have.length', 6);
 
     cy.get('[data-testid="0-recomendation-card"]').should('exist').and('visible');
