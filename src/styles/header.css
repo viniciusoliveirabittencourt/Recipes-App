@@ -8,6 +8,10 @@
   padding: 1rem;
 }
 
+.header h1 {
+  font-size: 1rem;
+}
+
 .header button {
   background: none;
   border: none;

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
 
@@ -10,12 +10,15 @@ export function AppProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [mealCategories, setMealCategories] = useState([]);
   const [drinkCategories, setDrinkCategories] = useState([]);
-  const [ingredientsFetch, setIngredientsFetch] = useState([]);
+  // const [ingredientsFetch, setIngredientsFetch] = useState([]);
   const [ingredientsPage, setIngredientsPage] = useState(false);
   const [selectedCategoryMeals, setSelectedCategoryMeals] = useState('search.php?s=');
   const [selectedCategoryDrinks, setSelectedCategoryDrinks] = useState('search.php?s=');
   const [loading, setLoading] = useState(false);
-  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const [favoriteRecipes, setFavoriteRecipes] = useState(() => {
+    const localStorageRecipes = localStorage.getItem('favoriteRecipes');
+    return localStorageRecipes ? JSON.parse(localStorageRecipes) : [];
+  });
 
   const requestFromApi = async (url) => {
     const fetchData = await fetch(url);
@@ -33,24 +36,24 @@ export function AppProvider({ children }) {
     const urlType = typeIsMeals ? mealsPath : drinksPath;
 
     const categories = await requestFromApi(`${urlType}list.php?c=list`);
-    const recipes = await requestFromApi(`${urlType}${category}`);
+    if (!ingredientsPage) {
+      const recipes = await requestFromApi(`${urlType}${category}`);
+      if (typeIsMeals) {
+        setMeals(recipes[type]);
+      } else {
+        setDrinks(recipes[type]);
+      }
+    }
 
     if (typeIsMeals) {
       setMealCategories(categories[type]);
-      setMeals(recipes[type]);
     } else {
       setDrinkCategories(categories[type]);
-      setDrinks(recipes[type]);
     }
 
     setLoading(false);
+    setIngredientsPage(false);
   };
-
-  useEffect(() => {
-    const favoriteRecipesInStorage = JSON.parse(localStorage
-      .getItem('favoriteRecipes')) || [];
-    setFavoriteRecipes(favoriteRecipesInStorage);
-  }, []);
 
   const context = {
     dataSearchMeals,
@@ -67,14 +70,17 @@ export function AppProvider({ children }) {
     drinks,
     ingredientsPage,
     setIngredientsPage,
-    ingredientsFetch,
-    setIngredientsFetch,
+    setDrinkCategories,
+    // ingredientsFetch,
+    // setIngredientsFetch,
     selectedCategoryMeals,
     setSelectedCategoryMeals,
     selectedCategoryDrinks,
     setSelectedCategoryDrinks,
     favoriteRecipes,
     setFavoriteRecipes,
+    setDrinks,
+    setMeals,
   };
 
   return (

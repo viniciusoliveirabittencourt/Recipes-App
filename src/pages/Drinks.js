@@ -16,6 +16,7 @@ export default function Drinks() {
     selectedCategoryDrinks,
     dataSearchDrinks,
     isSearch,
+    ingredientsPage,
   } = useAppContext();
 
   useEffect(() => {
@@ -30,7 +31,7 @@ export default function Drinks() {
   };
 
   const createRecipeCards = () => {
-    if (drinks.length > 0) {
+    if (drinks.length > 0 || ingredientsPage) {
       return (
         <Row xs={ 2 } md={ 2 } className="g-2" as="section">
           <RecipeCards
