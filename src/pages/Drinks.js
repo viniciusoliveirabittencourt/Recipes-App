@@ -20,7 +20,7 @@ export default function Drinks() {
   } = useAppContext();
 
   useEffect(() => {
-    if (searchByIngredient) {
+    if (!ingredientsPage) {
       fetchCategoriesAndRecipes('drinks');
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
