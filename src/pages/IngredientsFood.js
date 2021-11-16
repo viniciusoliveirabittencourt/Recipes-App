@@ -1,32 +1,21 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import useFetch from '../hooks/useFetch';
 import AppContext from '../context/AppContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Loading from '../components/Loading';
 
 function ExploreFoodByIngredients() {
-  const [mealsIngredients, setMealsIngredients] = useState([]);
-  const { setIngredientsFetch, setIngredientsPage } = useContext(AppContext);
+  const { data, loading } = useFetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list', 'meals');
+  const { setMeals, setIngredientsPage } = useContext(AppContext);
   const history = useHistory();
-
-  async function ingredientsApi() {
-    const endPoint = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
-    const result = await fetch(endPoint).then((response) => response.json());
-    const resultSlice = result.meals.slice(0, Number('12'));
-    setMealsIngredients(resultSlice);
-  }
-
-  useEffect(() => {
-    ingredientsApi();
-    setIngredientsPage(false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleClick = async (ingredient) => {
     const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
-    const result = await fetch(endpoint).then((response) => response.json());
-    const resultSlice = result.meals.slice(0, Number('12'));
-    setIngredientsFetch(resultSlice);
+    const response = await fetch(endpoint);
+    const result = await response.json();
+    setMeals(result.meals);
     setIngredientsPage(true);
     history.push('/comidas');
   };
@@ -35,8 +24,7 @@ function ExploreFoodByIngredients() {
 
     <div>
       <Header pagename="Explorar Ingredientes" />
-      <p>Tela de explorar comidas por ingrediente</p>
-      { mealsIngredients.map((ingredient, index) => (
+      { loading ? <Loading /> : data.slice(0, Number('12')).map((ingredient, index) => (
         <button
           type="submit"
           key={ index }

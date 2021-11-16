@@ -16,10 +16,13 @@ export default function Drinks() {
     selectedCategoryDrinks,
     dataSearchDrinks,
     isSearch,
+    ingredientsPage,
   } = useAppContext();
 
   useEffect(() => {
-    fetchCategoriesAndRecipes('drinks');
+    if (searchByIngredient) {
+      fetchCategoriesAndRecipes('drinks');
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategoryDrinks]);
 
@@ -30,7 +33,7 @@ export default function Drinks() {
   };
 
   const createRecipeCards = () => {
-    if (drinks.length > 0) {
+    if (drinks.length > 0 || ingredientsPage) {
       return (
         <Row xs={ 2 } md={ 2 } className="g-2" as="section">
           <RecipeCards

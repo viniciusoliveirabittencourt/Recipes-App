@@ -16,10 +16,13 @@ export default function Foods() {
     selectedCategoryMeals,
     dataSearchMeals,
     isSearch,
+    ingredientsPage,
   } = useAppContext();
 
   useEffect(() => {
-    fetchCategoriesAndRecipes('meals');
+    if (!ingredientsPage) {
+      fetchCategoriesAndRecipes('meals');
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategoryMeals]);
 
@@ -30,7 +33,7 @@ export default function Foods() {
   };
 
   const createRecipeCards = () => {
-    if (meals.length > 0) {
+    if (meals.length > 0 || ingredientsPage) {
       return (
         <Row xs={ 2 } md={ 2 } className="g-2" as="section">
           <RecipeCards

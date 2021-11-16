@@ -1,31 +1,21 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import Loading from '../components/Loading';
 import AppContext from '../context/AppContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import useFetch from '../hooks/useFetch';
 
 function ExploreDrinksByIngredients() {
-  const [ingredientsDrinks, setIngredientsDrinks] = useState([]);
-  const { setIngredientsFetch, setIngredientsPage } = useContext(AppContext);
+  const { data, loading } = useFetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list', 'drinks');
+  const { setDrinks, setIngredientsPage } = useContext(AppContext);
   const history = useHistory();
-
-  async function fecthDrinks() {
-    const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
-    const result = await fetch(endpoint).then((response) => response.json());
-    const slicedResult = result.drinks.slice(0, Number('12'));
-    setIngredientsDrinks(slicedResult);
-  }
-
-  useEffect(() => {
-    fecthDrinks();
-    setIngredientsPage(false);
-  }, []);
 
   const handleClick = async (ingredient) => {
     const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
-    const result = await fetch(endpoint).then((response) => response.json());
-    const slicedResult = result.drinks.slice(0, Number('12'));
-    setIngredientsFetch(slicedResult);
+    const response = await fetch(endpoint);
+    const result = await response.json();
+    setDrinks(result.drinks);
     setIngredientsPage(true);
     history.push('/bebidas');
   };
@@ -33,8 +23,7 @@ function ExploreDrinksByIngredients() {
   return (
     <div>
       <Header pagename="Explorar Ingredientes" />
-      <p>Tela de explorar bebidas por ingrediente</p>
-      { ingredientsDrinks.map((drink, index) => (
+      { loading ? <Loading /> : data.slice(0, Number('12')).map((drink, index) => (
         <button
           type="submit"
           key={ index }
