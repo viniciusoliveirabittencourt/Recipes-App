@@ -10,6 +10,8 @@ export function AppProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [mealCategories, setMealCategories] = useState([]);
   const [drinkCategories, setDrinkCategories] = useState([]);
+  const [ingredientsFetch, setIngredientsFetch] = useState([]);
+  const [ingredientsPage, setIngredientsPage] = useState(false);
   const [selectedCategoryMeals, setSelectedCategoryMeals] = useState('search.php?s=');
   const [selectedCategoryDrinks, setSelectedCategoryDrinks] = useState('search.php?s=');
   const [loading, setLoading] = useState(false);
@@ -63,6 +65,10 @@ export function AppProvider({ children }) {
     meals,
     drinkCategories,
     drinks,
+    ingredientsPage,
+    setIngredientsPage,
+    ingredientsFetch,
+    setIngredientsFetch,
     selectedCategoryMeals,
     setSelectedCategoryMeals,
     selectedCategoryDrinks,
