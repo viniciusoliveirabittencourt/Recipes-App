@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
+  const history = useHistory();
   const [loginState, setLoginState] = useState({
     email: '',
     password: '',
@@ -29,6 +30,7 @@ function Login() {
     localStorage.setItem('user', JSON.stringify({ email }));
     localStorage.setItem('mealsToken', JSON.stringify(1));
     localStorage.setItem('cocktailsToken', JSON.stringify(1));
+    history.push('/comidas');
   };
 
   useEffect(() => {
@@ -62,16 +64,14 @@ function Login() {
           isRequired
         />
       </label>
-      <Link to="/comidas">
-        <Button
-          variant="success"
-          data-testid="login-submit-btn"
-          disabled={ disabled }
-          onClick={ saveInLocalStorage }
-        >
-          Entrar
-        </Button>
-      </Link>
+      <Button
+        variant="success"
+        data-testid="login-submit-btn"
+        disabled={ disabled }
+        onClick={ saveInLocalStorage }
+      >
+        Entrar
+      </Button>
     </form>
   );
 }
