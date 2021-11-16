@@ -36,17 +36,23 @@ export function AppProvider({ children }) {
     const urlType = typeIsMeals ? mealsPath : drinksPath;
 
     const categories = await requestFromApi(`${urlType}list.php?c=list`);
-    const recipes = await requestFromApi(`${urlType}${category}`);
+    if (!ingredientsPage) {
+      const recipes = await requestFromApi(`${urlType}${category}`);
+      if (typeIsMeals) {
+        setMeals(recipes[type]);
+      } else {
+        setDrinks(recipes[type]);
+      }
+    }
 
     if (typeIsMeals) {
       setMealCategories(categories[type]);
-      setMeals(recipes[type]);
     } else {
       setDrinkCategories(categories[type]);
-      setDrinks(recipes[type]);
     }
 
     setLoading(false);
+    setIngredientsPage(false);
   };
 
   const context = {
@@ -64,6 +70,7 @@ export function AppProvider({ children }) {
     drinks,
     ingredientsPage,
     setIngredientsPage,
+    setDrinkCategories,
     // ingredientsFetch,
     // setIngredientsFetch,
     selectedCategoryMeals,

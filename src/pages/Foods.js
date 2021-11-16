@@ -20,9 +20,7 @@ export default function Foods() {
   } = useAppContext();
 
   useEffect(() => {
-    if (!ingredientsPage) {
-      fetchCategoriesAndRecipes('meals');
-    }
+    fetchCategoriesAndRecipes('meals');
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategoryMeals]);
 
