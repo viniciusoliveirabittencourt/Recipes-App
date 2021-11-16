@@ -47,6 +47,7 @@ function Login() {
           value={ email }
           onChange={ ({ target: { value, id } }) => handleChange(value, id) }
           placeholder="Insira seu e-mail"
+          required
         />
       </label>
       <label htmlFor="password">
@@ -58,6 +59,7 @@ function Login() {
           value={ password }
           onChange={ ({ target: { value, id } }) => handleChange(value, id) }
           placeholder="Insira sua senha"
+          isRequired
         />
       </label>
       <Link to="/comidas">
