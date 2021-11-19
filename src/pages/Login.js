@@ -36,6 +36,7 @@ function Login() {
   useEffect(() => {
     validateEmailAndPassword();
   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // console.log()
   }, [loginState]);
 
   return (
@@ -49,7 +50,7 @@ function Login() {
           value={ email }
           onChange={ ({ target: { value, id } }) => handleChange(value, id) }
           placeholder="Insira seu e-mail"
-          required
+          isrequired="true"
         />
       </label>
       <label htmlFor="password">
@@ -61,7 +62,7 @@ function Login() {
           value={ password }
           onChange={ ({ target: { value, id } }) => handleChange(value, id) }
           placeholder="Insira sua senha"
-          isRequired
+          isrequired="true"
         />
       </label>
       <Button
