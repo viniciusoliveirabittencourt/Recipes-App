@@ -36,6 +36,7 @@ function Login() {
   useEffect(() => {
     validateEmailAndPassword();
   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // console.log()
   }, [loginState]);
 
   return (
