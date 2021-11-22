@@ -8,4 +8,4 @@ ler; marcar receitas como favoritas; Filtar por diversos parametros escolhidos (
 receitas por diversos parametros escolhios (como localidade ou por ingredientes). Tudo isso utilizando Hooks,
 chamadas a API'S diferentes e comunicação acertiva entre os membros da equipe.
 
-Conclusão em 100%, CSS 50% (Pode melhorar, mas já está muito bom);
+Conclusão em 100%, CSS, mobile First, 50% (Pode melhorar, mas já está muito bom);
